@@ -19,8 +19,9 @@
   <script>
     document.getElementById('linkForm').onsubmit = function(e) {
       e.preventDefault();
-      const scout = encodeURIComponent(document.getElementById('scout').value.trim());
-      const popcorn = encodeURIComponent(document.getElementById('popcorn').value.trim());
+      // Encode scout name, replacing spaces with +
+      let scout = document.getElementById('scout').value.trim();
+      scout = encodeURIComponent(scout).replace(/%20/g, '+');
       if (!scout) {
         alert('Scout name is required.');
         return;
