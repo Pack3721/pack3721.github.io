@@ -26,12 +26,26 @@ title: Fundraiser
           
             <h2 class="title is-4">Coffee Fundraiser</h2>
             <p>Click below to support our coffee fundraiser. Be sure to enter the following information for each item when ordering!</p>
-            <div class="content">
-              <p><strong>District:</strong> {{ site.district }}</p>
-              <p><strong>Unit Type:</strong> {{ site.unit_type }}</p>
-              <p><strong>Unit Number:</strong> {{ site.unit_number }}</p>
-              <p><strong>Scout Name:</strong> <span id="scoutname"></span></p>
-            </div>
+            <table class="table is-striped is-fullwidth">
+                <tbody>
+                    <tr>
+                        <th>District</th>
+                        <td>{{ site.district }}</td>
+                    </tr>
+                    <tr>
+                        <th>Unit Type</th>
+                        <td>{{ site.unit_type }}</td>
+                    </tr>
+                    <tr>
+                        <th>Unit Number</th>
+                        <td>{{ site.unit_number }}</td>
+                    </tr>
+                    <tr>
+                        <th>Scout Name</th>
+                        <td><span id="scoutname"></span></td>
+                    </tr>
+                </tbody>
+            </table>
             <a class="button is-link is-medium" href="{{ site.coffee_link }}" target="_blank">Order Coffee</a>
            
           </div>
