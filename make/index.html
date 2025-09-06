@@ -43,18 +43,22 @@ title: Make
   <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
   <script>
     document.getElementById('linkForm').onsubmit = function(e) {
-      e.preventDefault();
-      // Encode scout name, replacing spaces with +
-      let scout = document.getElementById('scout').value.trim();
-      scout = encodeURIComponent(scout).replace(/%20/g, '+');
-      let popcorn = document.getElementById('popcorn').value.trim();
-      popcorn = encodeURIComponent(popcorn).replace(/%20/g, '+');
-      if (!scout) {
-        alert('Scout name is required.');
-        return;
-      }
-      let url = `${window.location.origin}/sell/?scout=${scout}`;
-      if (popcorn) url += `&popcorn=${popcorn}`;
+        e.preventDefault();
+        // Encode scout name, replacing spaces with +
+        let scout = document.getElementById('scout').value.trim();
+        scout = encodeURIComponent(scout).replace(/%20/g, '+');
+        let popcorn = document.getElementById('popcorn').value.trim();
+        popcorn = encodeURIComponent(popcorn).replace(/%20/g, '+');
+        if (!scout) {
+            alert('Scout name is required.');
+            return;
+        }
+        let url;
+        if (popcorn) {
+            url = `${window.location.origin}/sell/?scout=${scout}&popcorn=${popcorn}`;
+        } else {
+            url = `${window.location.origin}/coffee/?scout=${scout}`;
+        }
       document.getElementById('result').innerHTML = `<p>Share this link:</p><a class='has-text-link' href="${url}" target="_blank">${url}</a><br><canvas id='qr'></canvas>`;
       const qr = new QRious({element: document.getElementById('qr'), value: url, size: 200});
     };
