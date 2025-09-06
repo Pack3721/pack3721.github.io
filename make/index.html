@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Make Custom Fundraiser Link</title>
+</head>
+<body>
+  <h1>Generate Your Fundraiser Link & QR Code</h1>
+  <form id="linkForm">
+    <label for="scout">Scout Name (required):</label>
+    <input type="text" id="scout" name="scout" required><br><br>
+    <label for="popcorn">Popcorn Code (optional):</label>
+    <input type="text" id="popcorn" name="popcorn"><br><br>
+    <button type="submit">Generate Link</button>
+  </form>
+  <div id="result" style="margin-top:2em;"></div>
+  <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
+  <script>
+    document.getElementById('linkForm').onsubmit = function(e) {
+      e.preventDefault();
+      const scout = encodeURIComponent(document.getElementById('scout').value.trim());
+      const popcorn = encodeURIComponent(document.getElementById('popcorn').value.trim());
+      if (!scout) {
+        alert('Scout name is required.');
+        return;
+      }
+      let url = `${window.location.origin}/sell/?scout=${scout}`;
+      if (popcorn) url += `&popcorn=${popcorn}`;
+      document.getElementById('result').innerHTML = `<p>Share this link:</p><a href="${url}" target="_blank">${url}</a><br><canvas id='qr'></canvas>`;
+      const qr = new QRious({element: document.getElementById('qr'), value: url, size: 200});
+    };
+  </script>
+</body>
+</html>
