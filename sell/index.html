@@ -11,6 +11,12 @@ title: Fundraiser
 </head>
 <body>
   <h1>Support {{ site.unit_type }} {{ site.unit_number }}!</h1>
+
+    <div id="popcornfundraiser" style="display:none;">
+    <h2>Popcorn Fundraiser</h2>
+    <p>Click below to support our popcorn fundraiser. This link will take you to the Scout's popcorn ordering page.</p>
+    <a id="popcornlink" href="{{ site.popcorn_base_link }}" target="_blank">Order Popcorn</a>
+  </div>  
   <p><b>District:</b> {{ site.district }}</p>
   <p><b>Unit Type:</b> {{ site.unit_type }}</p>
   <p><b>Unit Number:</b> {{ site.unit_number }}</p>
@@ -18,11 +24,6 @@ title: Fundraiser
   <h2>Coffee Fundraiser</h2>
   <p>Click below to support our coffee fundraiser. Be sure to enter your scout's name (<span id="scoutname"></span>) when ordering!</p>
   <a href="{{ site.coffee_link }}" target="_blank">Order Coffee</a>
-  <div id="popcornfundraiser" style="display:none;">
-    <h2>Popcorn Fundraiser</h2>
-    <p>Click below to support our popcorn fundraiser. Use code <b id="popcorncode"></b> and enter your scout's name (<span id="scoutname"></span>)!</p>
-    <a id="popcornlink" href="{{ site.popcorn_base_link }}" target="_blank">Order Popcorn</a>
-  </div>
   <script>
     function getQuery() {
       const params = new URLSearchParams(window.location.search);
