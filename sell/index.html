@@ -9,6 +9,7 @@ title: Fundraiser
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ site.unit_type }} {{ site.unit_number }} Fundraiser</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
     <body>
@@ -20,7 +21,10 @@ title: Fundraiser
             <div id="popcornfundraiser" style="display:none; margin-top:2em;">
               <h2 class="title is-4">Popcorn Fundraiser</h2>
               <p>Click below to go straight to your Scout's popcorn fundraiser.</p>
-              <a id="popcornlink" class="button is-warning is-medium" href="{{ site.popcorn_base_link }}" target="_blank">Order Popcorn</a>
+              <a id="popcornlink" class="button is-warning is-medium" href="{{ site.popcorn_base_link }}" target="_blank">
+                <span class="icon"><i class="fas fa-popcorn"></i></span>
+                <span>Order Popcorn</span>
+              </a>
             </div>
 
           
@@ -46,7 +50,10 @@ title: Fundraiser
                     </tr>
                 </tbody>
             </table>
-            <a class="button is-link is-medium" href="{{ site.coffee_link }}" target="_blank">Order Coffee</a>
+            <a class="button is-link is-medium" href="{{ site.coffee_link }}" target="_blank">
+              <span class="icon"><i class="fas fa-coffee"></i></span>
+              <span>Order Coffee</span>
+            </a>
            
           </div>
         </div>
