@@ -11,58 +11,29 @@ title: Fundraiser
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 <body>
-  <h1>Support {{ site.unit_type }} {{ site.unit_number }}!</h1>
-
-    <div id="popcornfundraiser" style="display:none;">
-    <h2>Popcorn Fundraiser</h2>
-    <p>Click below to support our popcorn fundraiser. This link will take you to the Scout's popcorn ordering page.</p>
-    <a id="popcornlink" href="{{ site.popcorn_base_link }}" target="_blank">Order Popcorn</a>
-  </div>  
-
-  <h2>Coffee Fundraiser</h2>
-  <p>Click below to support our coffee fundraiser. Be sure to enter your the following information with each item when ordering!</p>
     <body>
       <section class="section">
         <div class="container">
           <div class="box">
             <h1 class="title is-3 has-text-centered">Support {{ site.unit_type }} {{ site.unit_number }}!</h1>
+            
+            <div id="popcornfundraiser" style="display:none; margin-top:2em;">
+              <h2 class="title is-4">Popcorn Fundraiser</h2>
+              <p>Click below to support our popcorn fundraiser. Use code <b id="popcorncode"></b> and enter your scout's name (<span id="scoutname"></span>)!</p>
+              <a id="popcornlink" class="button is-warning is-medium" href="{{ site.popcorn_base_link }}" target="_blank">Order Popcorn</a>
+            </div>
+
+          
+            <h2 class="title is-4">Coffee Fundraiser</h2>
+            <p>Click below to support our coffee fundraiser. Be sure to enter the following information for each item when ordering!</p>
             <div class="content">
               <p><strong>District:</strong> {{ site.district }}</p>
               <p><strong>Unit Type:</strong> {{ site.unit_type }}</p>
               <p><strong>Unit Number:</strong> {{ site.unit_number }}</p>
               <p><strong>Scout Name:</strong> <span id="scoutname"></span></p>
             </div>
-            <hr>
-            <h2 class="title is-4">Coffee Fundraiser</h2>
-            <p>Click below to support our coffee fundraiser. Be sure to enter your scout's name (<span id="scoutname"></span>) when ordering!</p>
             <a class="button is-link is-medium" href="{{ site.coffee_link }}" target="_blank">Order Coffee</a>
-            <div id="popcornfundraiser" style="display:none; margin-top:2em;">
-              <h2 class="title is-4">Popcorn Fundraiser</h2>
-              <p>Click below to support our popcorn fundraiser. Use code <b id="popcorncode"></b> and enter your scout's name (<span id="scoutname"></span>)!</p>
-              <a id="popcornlink" class="button is-warning is-medium" href="{{ site.popcorn_base_link }}" target="_blank">Order Popcorn</a>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="section">
-        <div class="container">
-          <div class="box">
-            <h1 class="title is-3 has-text-centered">Support {{ site.unit_type }} {{ site.unit_number }}!</h1>
-            <div class="content">
-              <p><strong>District:</strong> {{ site.district }}</p>
-              <p><strong>Unit Type:</strong> {{ site.unit_type }}</p>
-              <p><strong>Unit Number:</strong> {{ site.unit_number }}</p>
-              <p><strong>Scout Name:</strong> <span id="scoutname"></span></p>
-            </div>
-            <hr>
-            <h2 class="title is-4">Coffee Fundraiser</h2>
-            <p>Click below to support our coffee fundraiser. Be sure to enter your scout's name (<span id="scoutname"></span>) when ordering!</p>
-            <a class="button is-link is-medium" href="{{ site.coffee_link }}" target="_blank">Order Coffee</a>
-            <div id="popcornfundraiser" style="display:none; margin-top:2em;">
-              <h2 class="title is-4">Popcorn Fundraiser</h2>
-              <p>Click below to support our popcorn fundraiser. Use code <b id="popcorncode"></b> and enter your scout's name (<span id="scoutname"></span>)!</p>
-              <a id="popcornlink" class="button is-warning is-medium" href="{{ site.popcorn_base_link }}" target="_blank">Order Popcorn</a>
-            </div>
+           
           </div>
         </div>
       </section>
