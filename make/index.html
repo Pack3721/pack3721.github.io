@@ -22,6 +22,8 @@
       // Encode scout name, replacing spaces with +
       let scout = document.getElementById('scout').value.trim();
       scout = encodeURIComponent(scout).replace(/%20/g, '+');
+      let popcorn = document.getElementById('popcorn').value.trim();
+      popcorn = encodeURIComponent(popcorn).replace(/%20/g, '+');
       if (!scout) {
         alert('Scout name is required.');
         return;
