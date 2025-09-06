@@ -11,6 +11,21 @@ title: Make
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Make Custom Fundraiser Link for {{ site.scout_type }} {{ site.unit_type }} {{ site.unit_number }}</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <style>
+    @media print {
+      body * {
+        display: none !important;
+      }
+      #flyerSection, #flyerSection * {
+        display: block !important;
+        visibility: visible !important;
+        position: static !important;
+      }
+      #flyerSection .button {
+        display: none !important;
+      }
+    }
+  </style>
 </head>
 <body>
   <section class="section">
@@ -41,6 +56,21 @@ title: Make
           </div>
         </form>
         <div id="result" style="margin-top:2em;"></div>
+      </div>
+      <!-- Print Flyer Section -->
+      <div id="flyerSection" style="display:none; margin-top:2em;">
+        <div class="box" style="max-width:500px; margin:auto;">
+          <h2 class="title is-4 has-text-centered">Printable Flyer</h2>
+          <p class="has-text-centered">Support <span id="flyerScout"></span> in our fundraiser!</p>
+          <div class="has-text-centered" style="margin-bottom:1em;">
+            <canvas id="flyerQR" style="margin:auto;"></canvas>
+          </div>
+          <p class="has-text-centered">Scan the QR code or visit:</p>
+          <p class="has-text-centered"><a id="flyerLink" class="has-text-link" href="#" target="_blank"></a></p>
+        </div>
+        <div class="has-text-centered" style="margin-top:1em;">
+          <button class="button is-primary" onclick="window.print()">Print Flyer</button>
+        </div>
       </div>
     </div>
   </section>
@@ -89,7 +119,15 @@ title: Make
         url = `${window.location.origin}/coffee/?scout=${scout}`;
       }
       document.getElementById('result').innerHTML = `<p>Share this link:</p><a class='has-text-link' href="${url}" target="_blank">${url}</a><br><canvas id='qr'></canvas>`;
-      const qr = new QRious({element: document.getElementById('qr'), value: url, size: 200});
+  const qr = new QRious({element: document.getElementById('qr'), value: url, size: 200});
+  // Show flyer section and populate it
+  const flyerSection = document.getElementById('flyerSection');
+  flyerSection.style.display = '';
+  document.getElementById('flyerScout').textContent = document.getElementById('scout').value.trim();
+  document.getElementById('flyerLink').href = url;
+  document.getElementById('flyerLink').textContent = url;
+  // Generate QR for flyer
+  new QRious({element: document.getElementById('flyerQR'), value: url, size: 200});
     };
   </script>
 </body>
