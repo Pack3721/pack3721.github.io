@@ -63,10 +63,7 @@ title: Fundraiser
         }
         // Error if missing scout
         if (!query.scout) {
-          document.querySelectorAll('#scoutname').forEach(function(el){ el.textContent = ''; });
           document.getElementById('popcornfundraiser').style.display = 'none';
-          document.getElementById('popcorncode').textContent = '';
-          document.getElementById('popcornlink').href = '{{ site.popcorn_base_link }}';
           // Optionally show error message
           document.getElementById('scoutname').parentElement.innerHTML = '<b>Error:</b> Missing scout name.';
         }
