@@ -16,7 +16,7 @@ title: Make
   <section class="section">
     <div class="container">
       <div class="box">
-        <h1 class="title is-3 has-text-centered">Generate Your Fundraiser Link & QR Code</h1>
+        <h1 class="title is-3 has-text-centered">Generate Your Full Fundraiser Link & QR Code for {{ site.unit_type }} {{ site.unit_number }}</h1>
         <form id="linkForm">
           <div class="field">
             <label class="label" for="scout">Scout Name <span class="has-text-danger">(required)</span>:</label>
@@ -36,7 +36,7 @@ title: Make
           </div>
           <div class="field">
             <div class="control">
-              <button class="button is-link" type="submit">Generate Link</button>
+              <button class="button is-link" type="submit">Generate Full Fundraier Link &amp; QR Code</button>
             </div>
           </div>
         </form>
@@ -53,7 +53,7 @@ title: Make
       const previewLink = document.getElementById('popcornLinkPreview');
       if (code) {
         previewDiv.style.display = '';
-        previewLink.href = `https://trails-end.com/store/scout/${encodeURIComponent(code)}`;
+        previewLink.href = `{{site.popcorn_base_link}}/${encodeURIComponent(code)}`;
         previewLink.textContent = previewLink.href;
       } else {
         previewDiv.style.display = 'none';
@@ -62,8 +62,10 @@ title: Make
       }
     });
 
+
     document.getElementById('linkForm').onsubmit = function(e) {
       e.preventDefault();
+      
       // Encode scout name, replacing spaces with +
       let scout = document.getElementById('scout').value.trim();
       scout = encodeURIComponent(scout).replace(/%20/g, '+');
