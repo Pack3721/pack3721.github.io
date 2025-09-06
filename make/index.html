@@ -46,7 +46,7 @@ title: Make
   </section>
   <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
   <script>
-    // Popcorn code preview popover and button text change
+    // Popcorn code preview popover and button text/color change
     document.getElementById('popcorn').addEventListener('input', function() {
       const code = this.value.trim();
       const previewDiv = document.getElementById('popcornPreview');
@@ -57,11 +57,15 @@ title: Make
         previewLink.href = `{{site.popcorn_base_link}}/${encodeURIComponent(code)}`;
         previewLink.textContent = previewLink.href;
         btn.textContent = 'Generate Coffee & Popcorn Link & QR Code';
+        btn.classList.remove('is-link');
+        btn.classList.add('is-warning');
       } else {
         previewDiv.style.display = 'none';
         previewLink.href = '#';
         previewLink.textContent = '';
         btn.textContent = 'Generate Coffee Fundraiser Link & QR Code';
+        btn.classList.remove('is-warning');
+        btn.classList.add('is-link');
       }
     });
 
