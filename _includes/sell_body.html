@@ -7,7 +7,7 @@
                         style="max-width:300px; width:100%; margin:0 auto; display:block;">
                 </div>
 
-                <h1 class="title is-3 has-text-centered">Support {{ site.unit_type }} {{ site.unit_number }}!</h1>
+                <h1 class="title is-3 has-text-centered">Support <span class="scoutname"></span> raising money for {{site.scout_type}} {{ site.unit_type }} {{ site.unit_number }}!</h1>
             </div>
             <div id="popcornfundraiser" style="display:none;">
                 <p>If you want popcorn, you can just click the order popcorn button and it will take you to the Scout's
@@ -40,7 +40,7 @@
                             </tr>
                             <tr>
                                 <th>Scout Name</th>
-                                <td><span id="scoutname"></span></td>
+                                <td><span class="scoutname" id="scoutname"></span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -67,7 +67,7 @@
     function render() {
         const query = getQuery();
         // Scout name
-        document.querySelectorAll('#scoutname').forEach(function (el) { el.textContent = query.scout || ''; });
+        document.querySelectorAll('.scoutname').forEach(function (el) { el.textContent = query.scout || ''; });
         // Popcorn
         if (query.popcorn && query.scout) {
             document.getElementById('popcornfundraiser').style.display = '';
