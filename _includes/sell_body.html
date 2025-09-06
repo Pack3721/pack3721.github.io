@@ -3,12 +3,14 @@
           <div class="box">
             <h1 class="title is-3 has-text-centered">Support {{ site.unit_type }} {{ site.unit_number }}!</h1>
             
-            <div id="popcornfundraiser" style="display:none; margin-top:2em;">
+            <div id="popcornfundraiser" style="display:none; margin-top:2em;" class="has-text-centered">
               <p>If you want popcorn, you can just click the order popcorn button and it will take you to the Scout's personalized popcorn ordering page.</p>
-              <a id="popcornlink" class="button is-warning is-medium" href="{{ site.popcorn_base_link }}" target="_blank">
-                <span class="icon"><i class="fas fa-boxes-stacked"></i></span>
-                <span>Order Popcorn</span>
-              </a>
+              <div>
+                <a id="popcornlink" class="button is-warning is-medium" href="{{ site.popcorn_base_link }}" target="_blank">
+                  <span class="icon"><i class="fas fa-boxes-stacked"></i></span>
+                  <span>Order Popcorn</span>
+                </a>
+              </div>
             </div>
 
 
@@ -35,10 +37,13 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>  <a class="button is-link is-medium" href="{{ site.coffee_link }}" target="_blank">
-              <span class="icon"><i class="fas fa-mug-hot"></i></span>
-              <span>Order Coffee</span>
-            </a>
+            </div>
+            <div class="has-text-centered" style="margin-top:1em;">
+              <a class="button is-link is-medium" href="{{ site.coffee_link }}" target="_blank">
+                <span class="icon"><i class="fas fa-mug-hot"></i></span>
+                <span>Order Coffee</span>
+              </a>
+            </div>
            
           </div>
         </div>
