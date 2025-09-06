@@ -14,12 +14,14 @@ title: Make
   <style>
     @media print {
       body * {
-        display: none !important;
+        visibility: hidden !important;
+        position: absolute !important;
+        left: -9999px !important;
       }
       #flyerSection, #flyerSection * {
-        display: block !important;
         visibility: visible !important;
         position: static !important;
+        left: auto !important;
       }
       #flyerSection .button {
         display: none !important;
