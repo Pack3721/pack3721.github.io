@@ -16,7 +16,52 @@ title: Fundraiser
         <div class="container">
           <div class="box">
             <h1 class="title is-3 has-text-centered">Support {{ site.unit_type }} {{ site.unit_number }}!</h1>
-            
+            <!-- Coffee & Popcorn Fundraiser icon (square) - customizable with Liquid -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Pack {{ pack_number | default: 'XXX' }} - {{ title | default: 'Coffee & Popcorn Fundraiser' }}">
+    <defs>
+        <style>
+        .coffee { fill: {{ primary_color | default: '#6B3E26' }}; }
+        .popcorn { fill: {{ accent_color | default: '#F9D342' }}; }
+        .bucket { fill: none; stroke: {{ primary_color | default: '#6B3E26' }}; stroke-width: 10; stroke-linejoin: round; }
+        .label { fill: {{ text_color | default: '#FFFFFF' }}; font-family: "Arial, sans-serif"; font-weight: 700; font-size: 32px; text-anchor: middle; }
+        .pack { fill: {{ accent_color | default: '#F9D342' }}; font-family: "Arial, sans-serif"; font-weight: 700; font-size: 24px; text-anchor: middle; }
+        </style>
+    </defs>
+
+        <rect x="0" y="0" width="512" height="512" fill="none"/>
+
+        <!-- Left: coffee cup -->
+        <g transform="translate(64,30) scale(0.8)">
+            <ellipse cx="208" cy="312" rx="120" ry="20" fill="{{ accent_color | default: '#FFFFFF' }}" opacity="0.06"/>
+            <path class="coffee" d="M112 232c0 44 20 60 80 60s80-16 80-60V184c0-30-24-54-54-54H166c-30 0-54 24-54 54v48z"/>
+            <path class="coffee" d="M272 198c20 0 36 16 36 36s-16 36-36 36" fill="none" stroke="{{ primary_color | default: '#6B3E26' }}" stroke-width="14" stroke-linecap="round"/>
+            <path d="M170 126c8-20 26-26 26-42 0-12-16-16-26 0-5 8-5 18 0 42z" fill="none" stroke="{{ accent_color | default: '#F9D342' }}" stroke-width="8" stroke-linecap="round"/>
+        </g>
+
+        <!-- Right: popcorn bucket -->
+        <g transform="translate(270,60) scale(0.78)">
+            <!-- bucket outline -->
+            <path class="bucket" d="M180 120 L260 420 L80 420 L160 120 Z" stroke="{{ primary_color | default: '#6B3E26' }}" fill="#fff" opacity="0.02"/>
+            <!-- red-white stripes -->
+            <path d="M106 120 L166 420" stroke="{{ primary_color | default: '#6B3E26' }}" stroke-width="18" opacity="0.06"/>
+            <path d="M146 120 L206 420" stroke="{{ accent_color | default: '#F9D342' }}" stroke-width="18" opacity="0.06"/>
+            <!-- popcorn puffs -->
+            <g transform="translate(100,40)">
+            <circle class="popcorn" cx="60" cy="40" r="22"/>
+            <circle class="popcorn" cx="100" cy="24" r="26"/>
+            <circle class="popcorn" cx="140" cy="44" r="20"/>
+            <circle class="popcorn" cx="90" cy="68" r="18"/>
+            <circle class="popcorn" cx="130" cy="78" r="16"/>
+            </g>
+        </g>
+
+        <!-- Pack number -->
+        <text x="256" y="360" class="pack">Pack {{ pack_number | default: 'XXX' }}</text>
+
+        <!-- Title / subtitle -->
+        <text x="256" y="460" class="label">{{ title | default: 'Coffee & Popcorn Fundraiser' }}</text>
+    </svg>
+
             <div id="popcornfundraiser" style="display:none; margin-top:2em;">
               <h2 class="title is-4">Popcorn Fundraiser</h2>
               <p>Click below to go straight to your Scout's popcorn fundraiser.</p>
