@@ -8,10 +8,22 @@ title: Oops
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ site.unit_type }} {{ site.unit_number }} Fundraiser</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 <body>
-  <h1>Oops!</h1>
-  <p>This fundraising link is missing or incomplete. Please contact your scout for the correct link.</p>
-  <hr>
+  <section class="section">
+    <div class="container">
+      <div class="box">
+        <h1 class="title is-3 has-text-centered">Oops!</h1>
+        <p class="is-size-5">This fundraising link is missing or incomplete. Please contact your scout for the correct link.</p>
+        <hr>
+        <div class="content">
+          <p><strong>District:</strong> {{ site.district }}</p>
+          <p><strong>Unit Type:</strong> {{ site.unit_type }}</p>
+          <p><strong>Unit Number:</strong> {{ site.unit_number }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
 </body>
 </html>
