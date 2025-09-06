@@ -4,38 +4,38 @@
             <h1 class="title is-3 has-text-centered">Support {{ site.unit_type }} {{ site.unit_number }}!</h1>
             
             <div id="popcornfundraiser" style="display:none; margin-top:2em;">
-              <h2 class="title is-4">Popcorn Fundraiser</h2>
-              <p>Click below to go straight to your Scout's popcorn fundraiser.</p>
+              <p>If you want popcorn, you can just click the order popcorn button and it will take you to the Scout's personalized popcorn ordering page.</p>
               <a id="popcornlink" class="button is-warning is-medium" href="{{ site.popcorn_base_link }}" target="_blank">
                 <span class="icon"><i class="fas fa-boxes-stacked"></i></span>
                 <span>Order Popcorn</span>
               </a>
             </div>
 
-          
-            <h2 class="title is-4">Coffee Fundraiser</h2>
-            <p>Click below to support our coffee fundraiser. Be sure to enter the following information for each item when ordering!</p>
-            <table class="table is-striped is-fullwidth">
-                <tbody>
-                    <tr>
-                        <th>District</th>
-                        <td>{{ site.district }}</td>
-                    </tr>
-                    <tr>
-                        <th>Unit Type</th>
-                        <td>{{ site.unit_type }}</td>
-                    </tr>
-                    <tr>
-                        <th>Unit Number</th>
-                        <td>{{ site.unit_number }}</td>
-                    </tr>
-                    <tr>
-                        <th>Scout Name</th>
-                        <td><span id="scoutname"></span></td>
-                    </tr>
-                </tbody>
-            </table>
-            <a class="button is-link is-medium" href="{{ site.coffee_link }}" target="_blank">
+
+            <p>If you want Coffee, please read the following instructions before clicking the button below to go to coffee ordering page.</p>
+            <p></p> Be sure to enter the following information for each item when ordering!</p>
+            <div class="table-container" style="max-width: 300px; margin: 0 auto;">
+                <table class="table is-striped">
+                    <tbody>
+                        <tr>
+                            <th>District</th>
+                            <td>{{ site.district }}</td>
+                        </tr>
+                        <tr>
+                            <th>Unit Type</th>
+                            <td>{{ site.unit_type }}</td>
+                        </tr>
+                        <tr>
+                            <th>Unit Number</th>
+                            <td>{{ site.unit_number }}</td>
+                        </tr>
+                        <tr>
+                            <th>Scout Name</th>
+                            <td><span id="scoutname"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>  <a class="button is-link is-medium" href="{{ site.coffee_link }}" target="_blank"></a>
               <span class="icon"><i class="fas fa-mug-hot"></i></span>
               <span>Order Coffee</span>
             </a>
