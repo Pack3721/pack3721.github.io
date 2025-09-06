@@ -36,7 +36,7 @@ title: Make
           </div>
           <div class="field">
             <div class="control">
-              <button class="button is-link" type="submit">Generate Full Fundraier Link &amp; QR Code</button>
+              <button class="button is-link" type="submit" id="generateBtn">Generate Coffee Fundraiser Link &amp; QR Code</button>
             </div>
           </div>
         </form>
@@ -46,19 +46,22 @@ title: Make
   </section>
   <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
   <script>
-    // Popcorn code preview popover
+    // Popcorn code preview popover and button text change
     document.getElementById('popcorn').addEventListener('input', function() {
       const code = this.value.trim();
       const previewDiv = document.getElementById('popcornPreview');
       const previewLink = document.getElementById('popcornLinkPreview');
+      const btn = document.getElementById('generateBtn');
       if (code) {
         previewDiv.style.display = '';
         previewLink.href = `{{site.popcorn_base_link}}/${encodeURIComponent(code)}`;
         previewLink.textContent = previewLink.href;
+        btn.textContent = 'Generate Coffee & Popcorn Link & QR Code';
       } else {
         previewDiv.style.display = 'none';
         previewLink.href = '#';
         previewLink.textContent = '';
+        btn.textContent = 'Generate Coffee Fundraiser Link & QR Code';
       }
     });
 
