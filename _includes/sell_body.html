@@ -1,83 +1,87 @@
-  <section class="section">
-        <div class="container">
-          <div class="box">
-       <div class="container">
-        <div class="has-text-centered" style="margin-bottom:2em;">
-          <img src="/assets/images/{{stub}}.png" alt="{{title}}" style="max-width:300px; width:100%; margin:0 auto; display:block;">
-        </div>
-     
-            <h1 class="title is-3 has-text-centered">Support {{ site.unit_type }} {{ site.unit_number }}!</h1>
-              </div>
+<section class="section">
+    <div class="container">
+        <div class="box">
+            <div class="container">
+                <div class="has-text-centered" style="margin-bottom:2em;">
+                    <img src="/assets/images/{{stub}}.png" alt="{{title}}"
+                        style="max-width:300px; width:100%; margin:0 auto; display:block;">
+                </div>
+
+                <h1 class="title is-3 has-text-centered">Support {{ site.unit_type }} {{ site.unit_number }}!</h1>
+            </div>
             <div id="popcornfundraiser" style="display:none;" class="has-text-centered">
-              <p>If you want popcorn, you can just click the order popcorn button and it will take you to the Scout's personalized popcorn ordering page.</p>
-              <a id="popcornlink" class="button is-warning is-medium" href="{{ site.popcorn_base_link }}" target="_blank">
-                <span class="icon"><i class="fas fa-boxes-stacked"></i></span>
-                <span>Order Popcorn</span>
-              </a>
+                <p>If you want popcorn, you can just click the order popcorn button and it will take you to the Scout's
+                    personalized popcorn ordering page.</p>
+                <a id="popcornlink" class="button is-warning is-medium" href="{{ site.popcorn_base_link }}"
+                    target="_blank">
+                    <span class="icon"><i class="fas fa-boxes-stacked"></i></span>
+                    <span>Order Popcorn</span>
+                </a>
             </div>
 
             <div>
-            <p>If you want Coffee, please read the following instructions before clicking the button below to go to coffee ordering page.</p>
-            <p></p> Be sure to enter the following information for each item when ordering!</p>
-            <div class="table-container" style="max-width: 300px; margin: 0 auto;">
-                <table class="table is-striped">
-                    <tbody>
-                        <tr>
-                            <th>District</th>
-                            <td>{{ site.district }}</td>
-                        </tr>
-                        <tr>
-                            <th>Unit Type</th>
-                            <td>{{ site.unit_type }}</td>
-                        </tr>
-                        <tr>
-                            <th>Unit Number</th>
-                            <td>{{ site.unit_number }}</td>
-                        </tr>
-                        <tr>
-                            <th>Scout Name</th>
-                            <td><span id="scoutname"></span></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <p>If you want Coffee, please read the following instructions before clicking the button below to go to
+                    coffee ordering page.</p>
+                <p></p> Be sure to enter the following information for each item when ordering!</p>
+                <div class="table-container" style="max-width: 300px; margin: 0 auto;">
+                    <table class="table is-striped">
+                        <tbody>
+                            <tr>
+                                <th>District</th>
+                                <td>{{ site.district }}</td>
+                            </tr>
+                            <tr>
+                                <th>Unit Type</th>
+                                <td>{{ site.unit_type }}</td>
+                            </tr>
+                            <tr>
+                                <th>Unit Number</th>
+                                <td>{{ site.unit_number }}</td>
+                            </tr>
+                            <tr>
+                                <th>Scout Name</th>
+                                <td><span id="scoutname"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <a class="button is-link is-medium" href="{{ site.coffee_link }}" target="_blank">
+                        <span class="icon"><i class="fas fa-mug-hot"></i></span>
+                        <span>Order Coffee</span>
+                    </a>
+                </div>
             </div>
-            <div>
-              <a class="button is-link is-medium" href="{{ site.coffee_link }}" target="_blank">
-                <span class="icon"><i class="fas fa-mug-hot"></i></span>
-                <span>Order Coffee</span>
-              </a>
-            </div>
-           </div>
-          </div>
         </div>
-      </section>
-      <!-- Move script to end of body for valid HTML -->
-    <script>
-      function getQuery() {
+    </div>
+</section>
+<!-- Move script to end of body for valid HTML -->
+<script>
+    function getQuery() {
         const params = new URLSearchParams(window.location.search);
         return {
-          scout: params.get('scout') || '',
-          popcorn: params.get('popcorn') || ''
+            scout: params.get('scout') || '',
+            popcorn: params.get('popcorn') || ''
         };
-      }
-      function render() {
+    }
+    function render() {
         const query = getQuery();
         // Scout name
-        document.querySelectorAll('#scoutname').forEach(function(el){ el.textContent = query.scout || ''; });
+        document.querySelectorAll('#scoutname').forEach(function (el) { el.textContent = query.scout || ''; });
         // Popcorn
         if (query.popcorn && query.scout) {
-          document.getElementById('popcornfundraiser').style.display = '';
-          document.getElementById('popcornlink').href = "{{ site.popcorn_base_link }}" + query.popcorn;
+            document.getElementById('popcornfundraiser').style.display = '';
+            document.getElementById('popcornlink').href = "{{ site.popcorn_base_link }}" + query.popcorn;
         } else {
-          document.getElementById('popcornfundraiser').style.display = 'none';
-          document.getElementById('popcornlink').href = '{{ site.popcorn_base_link }}';
+            document.getElementById('popcornfundraiser').style.display = 'none';
+            document.getElementById('popcornlink').href = '{{ site.popcorn_base_link }}';
         }
         // Error if missing scout
         if (!query.scout) {
-          document.getElementById('popcornfundraiser').style.display = 'none';
-          // Optionally show error message
-          document.getElementById('scoutname').parentElement.innerHTML = '<b>Error:</b> Missing scout name.';
+            document.getElementById('popcornfundraiser').style.display = 'none';
+            // Optionally show error message
+            document.getElementById('scoutname').parentElement.innerHTML = '<b>Error:</b> Missing scout name.';
         }
-      }
-      render();
-    </script>
+    }
+    render();
+</script>
