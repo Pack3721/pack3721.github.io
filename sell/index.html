@@ -54,11 +54,9 @@ title: Fundraiser
         // Popcorn
         if (query.popcorn && query.scout) {
           document.getElementById('popcornfundraiser').style.display = '';
-          document.getElementById('popcorncode').textContent = query.popcorn;
           document.getElementById('popcornlink').href = "{{ site.popcorn_base_link }}" + query.popcorn;
         } else {
           document.getElementById('popcornfundraiser').style.display = 'none';
-          document.getElementById('popcorncode').textContent = '';
           document.getElementById('popcornlink').href = '{{ site.popcorn_base_link }}';
         }
         // Error if missing scout
