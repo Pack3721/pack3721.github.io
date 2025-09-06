@@ -1,0 +1,31 @@
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# macOS folder attributes
+__MACOSX/
+
+# VS Code settings
+.vscode/
+
+# Node modules (if using Node.js)
+node_modules/
+
+# Jekyll build output
+_site/
+
+# Logs
+*.log
+
+# Temporary files
+*.swp
+*.swo
+*.tmp
+
+# Other common ignores
+Thumbs.db
+Desktop.ini
+
+# Python virtualenv (if used)
+venv/
