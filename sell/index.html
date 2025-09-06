@@ -17,12 +17,28 @@ title: Fundraiser
     <p>Click below to support our popcorn fundraiser. This link will take you to the Scout's popcorn ordering page.</p>
     <a id="popcornlink" href="{{ site.popcorn_base_link }}" target="_blank">Order Popcorn</a>
   </div>  
-  <p><b>District:</b> {{ site.district }}</p>
-  <p><b>Unit Type:</b> {{ site.unit_type }}</p>
-  <p><b>Unit Number:</b> {{ site.unit_number }}</p>
-  <p><b>Scout Name:</b> <span id="scoutname"></span></p>
+
   <h2>Coffee Fundraiser</h2>
-  <p>Click below to support our coffee fundraiser. Be sure to enter your scout's name (<span id="scoutname"></span>) when ordering!</p>
+  <p>Click below to support our coffee fundraiser. Be sure to enter your the following information with each item when ordering!</p>
+    <table>
+        <tr>
+            <td><b>District:</b></td>
+            <td>{{ site.district }}</td>
+        </tr>
+        <tr>
+            <td><b>Unit Type:</b></td>
+            <td>{{ site.unit_type }}</td>
+        </tr>
+        <tr>
+            <td><b>Unit Number:</b></td>
+            <td>{{ site.unit_number }}</td>
+        </tr>
+        <tr>
+            <td><b>Scout Name:</b></td>
+            <td><span id="scoutname"></span></td>
+        </tr>
+    </table>
+  
   <a href="{{ site.coffee_link }}" target="_blank">Order Coffee</a>
   <script>
     function getQuery() {
