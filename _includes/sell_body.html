@@ -20,15 +20,23 @@
 
             <div>
                 <p>Interested in coffee? Please read the instructions below before ordering.</p>
-                <!-- Manual slideshow for instructions -->
-                <div id="instructions-slideshow" style="max-width:350px; margin:1.5em auto; text-align:center;">
-                    <button id="slide-prev" style="margin-right:1em;">&#8592;</button>
-                    <img id="slide-img" src="/assets/images/coffee-instruct1.png" alt="Instruction 1" style="max-width:300px; width:100%; display:inline-block; vertical-align:middle;">
-                    <button id="slide-next" style="margin-left:1em;">&#8594;</button>
-                    <div id="slide-caption" style="margin-top:0.5em; font-weight:bold;">Step 1</div>
+                <!-- Instruction images in order -->
+                <div style="max-width:350px; margin:1.5em auto; text-align:center;">
+                    <div style="margin-bottom:1em;">
+                        <div style="margin-bottom:0.5em; font-weight:bold;">Step 1. When choosing your items click on their picture not the add to cart buttons.</div>
+                        <img src="/assets/images/coffee-instruct1.png" alt="Instruction 1" style="max-width:300px; width:100%; display:block; margin:0 auto;">
+                    </div>
+                    <div style="margin-bottom:1em;">
+                        <div style="margin-bottom:0.5em; font-weight:bold;">Step 2. After selecting your items fill in all of the scout's information before clicking the "Add to Cart" button.</div>
+                        <img src="/assets/images/coffee-instruct2.png" alt="Instruction 2" style="max-width:300px; width:100%; display:block; margin:0 auto;">
+                    </div>
+                    <div style="margin-bottom:1em;">
+                        <div style="margin-bottom:0.5em; font-weight:bold;">Step 3. When you're ready to checkout, each item will have your scout's information.</div>
+                        <img src="/assets/images/coffee-instruct3.png" alt="Instruction 3" style="max-width:300px; width:100%; display:block; margin:0 auto;">
+                    </div>
                 </div>
-                
-                <p>When ordering, please enter the following information for each item:</p>
+
+                <p>For your convenience here is your scout's information for each item:</p>
                 <div class="table-container" style="max-width: 300px; margin: 0 auto;">
                     <table class="table is-striped">
                         <tbody>
@@ -63,35 +71,6 @@
 </section>
 <!-- Move script to end of body for valid HTML -->
 <script>
-    // Simple slideshow logic
-    const slideImages = [
-        '/assets/images/coffee-instruct1.png',
-        '/assets/images/coffee-instruct2.png',
-        '/assets/images/coffee-instruct3.png'
-    ];
-    const slideCaptions = [
-        'Step 1',
-        'Step 2',
-        'Step 3'
-    ];
-    let slideIndex = 0;
-    function showSlide(idx) {
-        const img = document.getElementById('slide-img');
-        const cap = document.getElementById('slide-caption');
-        img.src = slideImages[idx];
-        img.alt = 'Instruction ' + (idx + 1);
-        cap.textContent = slideCaptions[idx];
-    }
-    document.getElementById('slide-prev').onclick = function() {
-        slideIndex = (slideIndex - 1 + slideImages.length) % slideImages.length;
-        showSlide(slideIndex);
-    };
-    document.getElementById('slide-next').onclick = function() {
-        slideIndex = (slideIndex + 1) % slideImages.length;
-        showSlide(slideIndex);
-    };
-    // Initialize first slide
-    showSlide(slideIndex);
     function getQuery() {
         const params = new URLSearchParams(window.location.search);
         return {
