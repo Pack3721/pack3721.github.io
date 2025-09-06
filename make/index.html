@@ -9,7 +9,7 @@ title: Make
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Make Custom Fundraiser Link for {{ site.unit_type }} {{ site.unit_number }}</title>
+  <title>Make Custom Fundraiser Link for {{ site.scout_type }} {{ site.unit_type }} {{ site.unit_number }}</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 <body>
@@ -25,9 +25,13 @@ title: Make
             </div>
           </div>
           <div class="field">
-            <label class="label" for="popcorn">Popcorn Code <span class="has-text-grey">(optional)</span>:</label>
+            <label class="label" for="popcorn">Popcorn Scout Code <span class="has-text-grey">(optional)</span>:</label>
             <div class="control">
               <input class="input" type="text" id="popcorn" name="popcorn">
+            </div>
+            <div id="popcornPreview" style="display:none; margin-top:0.5em;">
+              <span class="has-text-grey">Test Popcorn Link:</span>
+              <a id="popcornLinkPreview" class="has-text-link" href="#" target="_blank"></a>
             </div>
           </div>
           <div class="field">
@@ -42,23 +46,39 @@ title: Make
   </section>
   <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
   <script>
+    // Popcorn code preview popover
+    document.getElementById('popcorn').addEventListener('input', function() {
+      const code = this.value.trim();
+      const previewDiv = document.getElementById('popcornPreview');
+      const previewLink = document.getElementById('popcornLinkPreview');
+      if (code) {
+        previewDiv.style.display = '';
+        previewLink.href = `https://trails-end.com/store/scout/${encodeURIComponent(code)}`;
+        previewLink.textContent = previewLink.href;
+      } else {
+        previewDiv.style.display = 'none';
+        previewLink.href = '#';
+        previewLink.textContent = '';
+      }
+    });
+
     document.getElementById('linkForm').onsubmit = function(e) {
-        e.preventDefault();
-        // Encode scout name, replacing spaces with +
-        let scout = document.getElementById('scout').value.trim();
-        scout = encodeURIComponent(scout).replace(/%20/g, '+');
-        let popcorn = document.getElementById('popcorn').value.trim();
-        popcorn = encodeURIComponent(popcorn).replace(/%20/g, '+');
-        if (!scout) {
-            alert('Scout name is required.');
-            return;
-        }
-        let url;
-        if (popcorn) {
-            url = `${window.location.origin}/sell/?scout=${scout}&popcorn=${popcorn}`;
-        } else {
-            url = `${window.location.origin}/coffee/?scout=${scout}`;
-        }
+      e.preventDefault();
+      // Encode scout name, replacing spaces with +
+      let scout = document.getElementById('scout').value.trim();
+      scout = encodeURIComponent(scout).replace(/%20/g, '+');
+      let popcorn = document.getElementById('popcorn').value.trim();
+      popcorn = encodeURIComponent(popcorn).replace(/%20/g, '+');
+      if (!scout) {
+        alert('Scout name is required.');
+        return;
+      }
+      let url;
+      if (popcorn) {
+        url = `${window.location.origin}/sell/?scout=${scout}&popcorn=${popcorn}`;
+      } else {
+        url = `${window.location.origin}/coffee/?scout=${scout}`;
+      }
       document.getElementById('result').innerHTML = `<p>Share this link:</p><a class='has-text-link' href="${url}" target="_blank">${url}</a><br><canvas id='qr'></canvas>`;
       const qr = new QRious({element: document.getElementById('qr'), value: url, size: 200});
     };
