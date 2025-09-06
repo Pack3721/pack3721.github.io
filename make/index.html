@@ -54,7 +54,7 @@ title: Make
       const btn = document.getElementById('generateBtn');
       if (code) {
         previewDiv.style.display = '';
-        previewLink.href = `{{site.popcorn_base_link}}/${encodeURIComponent(code)}`;
+        previewLink.href = `{{site.popcorn_base_link}}${encodeURIComponent(code)}`;
         previewLink.textContent = previewLink.href;
         btn.textContent = 'Generate Coffee & Popcorn Link & QR Code';
         btn.classList.remove('is-link');
