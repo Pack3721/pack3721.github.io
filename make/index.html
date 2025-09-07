@@ -67,8 +67,11 @@ title: Make
           <h2 class='title is-5 has-text-centered'>Share Your Fundraiser</h2>
           <p class='has-text-centered'>Copy and Paste this message:</p>
           <div class='has-text-centered' style='margin-bottom:1em;'>
-            <textarea id='socialMsg' class='textarea' readonly style='margin-bottom:0.5em;'>Support <span id="socialScoutName">[Scout Name]</span> fundraising for {{ site.scout_type }} {{ site.unit_type }} {{ site.unit_number }}! Order delicious coffee and treats! <span id="socialMsgUrl"></span></textarea>
+            <textarea id='socialMsg' class='textarea' readonly style='margin-bottom:0.5em;'></textarea>
             <button class='button is-info' id='copyMsgBtn' title='Copy the message to your clipboard'>Copy Message</button>
+            <div id="socialMsgTemplate" style="display:none;">
+              Support [Scout Name] fundraising for {{ site.scout_type }} {{ site.unit_type }} {{ site.unit_number }}! Order delicious coffee and treats! [URL]
+            </div>
           </div>
           <p class='has-text-centered'>Or share this direct link: <a id='socialLink' class='has-text-link' href='#' target='_blank'></a></p>
         </div>
@@ -139,12 +142,12 @@ title: Make
       const socialSection = document.getElementById('socialSection');
       const socialMsg = document.getElementById('socialMsg');
       const socialLink = document.getElementById('socialLink');
-  // Insert the URL into the message and link
-  // Get the message text from the HTML and append the URL
-  const msgText = socialMsg.value.replace(/<span[^>]*>[\s\S]*?<\/span>/, '').trim();
-  socialMsg.value = msgText + url;
-  socialLink.href = url;
-  socialLink.textContent = url;
+      const template = document.getElementById('socialMsgTemplate').textContent;
+      const scoutName = decodeURIComponent(scout.replace(/\+/g, ' '));
+      const message = template.replace('[Scout Name]', scoutName).replace('[URL]', url);
+      socialMsg.value = message;
+      socialLink.href = url;
+      socialLink.textContent = url;
       socialSection.style.display = '';
       document.getElementById('copyMsgBtn').onclick = function() {
         navigator.clipboard.writeText(socialMsg.value);
