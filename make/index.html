@@ -97,8 +97,7 @@ title: Make
                         Revision: <span style="font-family:monospace;">{{ site.github.build_revision}}</span>
                         </div>
                     <h1 class="title is-3 has-text-centered">Create Your Personalized Coffee Fundraiser Link & Flyer</h1>
-                    <!--a subtle grayed out version hash string-->
-
+                    <h2 class="subtitle is-5 has-text-centered">For Online Sales</h2>
                     <form id="linkForm">
                         <div class="field">
                             <label class="label" for="scout">Enter Your Name <span
@@ -132,6 +131,8 @@ title: Make
                             </div>
                         </div>
                     </form>
+                    <!-- add a dynamic (scroll down) message after generation-->
+                    <p class="has-text-centered" id="scrollDownMessage" style="display:none;">(Scroll down for your fundraiser link and flyer)</p>
                 </div>
             </section>
             <section id="socialSection" class="section" style="display:none;">
@@ -297,6 +298,8 @@ title: Make
             document.getElementById('flyerImg').src = flyerImgSrc;
             // Generate QR for flyer
             new QRious({ element: document.getElementById('flyerQR'), value: url, size: 200 });
+                // Show scroll down message
+                document.getElementById('scrollDownMessage').style.display = '';
         };
     </script>
 </body>
