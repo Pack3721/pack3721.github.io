@@ -67,7 +67,7 @@ title: Make
           <h2 class='title is-5 has-text-centered'>Share Your Fundraiser</h2>
           <p class='has-text-centered'>Copy and Paste this message:</p>
           <div class='has-text-centered' style='margin-bottom:1em;'>
-            <textarea id='socialMsg' class='textarea' readonly style='margin-bottom:0.5em;'>Support my fundraiser! Order delicious coffee and treats at: <span id="socialMsgUrl"></span></textarea>
+            <textarea id='socialMsg' class='textarea' readonly style='margin-bottom:0.5em;'>Support <span id="socialScoutName">[Scout Name]</span> fundraising for {{ site.scout_type }} {{ site.unit_type }} {{ site.unit_number }}! Order delicious coffee and treats! <span id="socialMsgUrl"></span></textarea>
             <button class='button is-info' id='copyMsgBtn' title='Copy the message to your clipboard'>Copy Message</button>
           </div>
           <p class='has-text-centered'>Or share this direct link: <a id='socialLink' class='has-text-link' href='#' target='_blank'></a></p>
@@ -75,7 +75,7 @@ title: Make
       </section>
       </div>
       <!-- Print Flyer Section -->
-      <div class="has-text-centered" style="margin-top:2em;">
+      <div id="printButtonSection" class="has-text-centered" style="margin-top:2em; display:none;">
         <button class="button is-primary" onclick="window.print()" title="Print a flyer to hand out">Print My Fundraiser Flyer</button>
       </div>
       <div id="flyerSection" style="display:none; margin-top:2em;">
@@ -149,9 +149,10 @@ title: Make
       document.getElementById('copyMsgBtn').onclick = function() {
         navigator.clipboard.writeText(socialMsg.value);
       };
-  // Show flyer section and populate it
+  // Show flyer section and print button, and populate flyer
   const flyerSection = document.getElementById('flyerSection');
   flyerSection.style.display = '';
+  document.getElementById('printButtonSection').style.display = '';
   document.getElementById('flyerScout').textContent = document.getElementById('scout').value.trim();
   document.getElementById('flyerLink').href = url;
   document.getElementById('flyerLink').textContent = url;
