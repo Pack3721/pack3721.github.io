@@ -98,14 +98,75 @@ title: Make
                 </div>
                 <h2 class="title is-4 has-text-centered no-print">Your Printable Fundraiser Flyer</h2>
                 <p class="has-text-centered">Support <span id="flyerScout"></span> and help us reach our goal!</p>
-                <!-- Starburst Callouts -->
-                <div class="has-text-centered" style="margin-bottom:1em; display:flex; justify-content:center; gap:1em; flex-wrap:wrap;">
-                    <span style="display:inline-block; padding:0.5em 1em; font-weight:bold; color:#fff; background:radial-gradient(circle at 30% 30%, #ff3860 60%, #ff6f91 100%); border-radius:50%; box-shadow:0 0 10px #ff3860, 0 0 0 8px #fff; font-size:1.1em; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">ORDER ONLINE</span>
-                    <span style="display:inline-block; padding:0.5em 1em; font-weight:bold; color:#fff; background:radial-gradient(circle at 70% 30%, #3273dc 60%, #6ec6ff 100%); border-radius:50%; box-shadow:0 0 10px #3273dc, 0 0 0 8px #fff; font-size:1.1em; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">SHIPS DIRECTLY</span>
-                    <span style="display:inline-block; padding:0.5em 1em; font-weight:bold; color:#fff; background:radial-gradient(circle at 50% 70%, #23d160 60%, #a8ff78 100%); border-radius:50%; box-shadow:0 0 10px #23d160, 0 0 0 8px #fff; font-size:1.1em; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);">ARRIVES SOONER</span>
-                </div>
-                <div class="has-text-centered" style="margin-bottom:1em;">
-                    <canvas id="flyerQR" style="margin:auto;"></canvas>
+                <!-- SVG Sunburst Callouts Orbiting QR -->
+                <div class="has-text-centered" style="margin-bottom:1em; position:relative; width:320px; height:320px; margin:auto;">
+                    <!-- Sunburst 1 -->
+                    <svg width="100" height="100" style="position:absolute; left:0; top:0; transform:translate(-10px, 10px);" viewBox="0 0 100 100">
+                        <g>
+                            <circle cx="50" cy="50" r="30" fill="#ff3860" />
+                            <g>
+                                <g>
+                                    <polygon points="50,5 55,35 50,25 45,35" fill="#ff6f91" />
+                                </g>
+                                <g>
+                                    <polygon points="95,50 65,55 75,50 65,45" fill="#ff6f91" />
+                                </g>
+                                <g>
+                                    <polygon points="50,95 45,65 50,75 55,65" fill="#ff6f91" />
+                                </g>
+                                <g>
+                                    <polygon points="5,50 35,45 25,50 35,55" fill="#ff6f91" />
+                                </g>
+                            </g>
+                            <text x="50" y="54" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff" font-family="Arial">ORDER ONLINE</text>
+                        </g>
+                    </svg>
+                    <!-- Sunburst 2 -->
+                    <svg width="100" height="100" style="position:absolute; right:0; top:40px; transform:translate(10px, 0px);" viewBox="0 0 100 100">
+                        <g>
+                            <circle cx="50" cy="50" r="30" fill="#3273dc" />
+                            <g>
+                                <g>
+                                    <polygon points="50,5 55,35 50,25 45,35" fill="#6ec6ff" />
+                                </g>
+                                <g>
+                                    <polygon points="95,50 65,55 75,50 65,45" fill="#6ec6ff" />
+                                </g>
+                                <g>
+                                    <polygon points="50,95 45,65 50,75 55,65" fill="#6ec6ff" />
+                                </g>
+                                <g>
+                                    <polygon points="5,50 35,45 25,50 35,55" fill="#6ec6ff" />
+                                </g>
+                            </g>
+                            <text x="50" y="54" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff" font-family="Arial">SHIPS DIRECTLY</text>
+                        </g>
+                    </svg>
+                    <!-- Sunburst 3 -->
+                    <svg width="100" height="100" style="position:absolute; left:50%; bottom:0; transform:translate(-50%, 10px);" viewBox="0 0 100 100">
+                        <g>
+                            <circle cx="50" cy="50" r="30" fill="#23d160" />
+                            <g>
+                                <g>
+                                    <polygon points="50,5 55,35 50,25 45,35" fill="#a8ff78" />
+                                </g>
+                                <g>
+                                    <polygon points="95,50 65,55 75,50 65,45" fill="#a8ff78" />
+                                </g>
+                                <g>
+                                    <polygon points="50,95 45,65 50,75 55,65" fill="#a8ff78" />
+                                </g>
+                                <g>
+                                    <polygon points="5,50 35,45 25,50 35,55" fill="#a8ff78" />
+                                </g>
+                            </g>
+                            <text x="50" y="54" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff" font-family="Arial">ARRIVES SOONER</text>
+                        </g>
+                    </svg>
+                    <!-- QR Code Center -->
+                    <div style="position:absolute; left:50%; top:50%; transform:translate(-50%, -50%);">
+                        <canvas id="flyerQR" style="margin:auto;"></canvas>
+                    </div>
                 </div>
                 <p class="has-text-centered">Scan the QR code or visit this link:</p>
                 <p class="has-text-centered"><a id="flyerLink" class="has-text-link" href="#" target="_blank"></a></p>
