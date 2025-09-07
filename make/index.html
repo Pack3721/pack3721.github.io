@@ -141,7 +141,7 @@ title: Make
       const socialLink = document.getElementById('socialLink');
   // Insert the URL into the message and link
   // Get the message text from the HTML and append the URL
-  const msgText = socialMsg.value.replace(/<span.*<\/span>/, '').trim();
+  const msgText = socialMsg.value.replace(/<span[^>]*>[\s\S]*?<\/span>/, '').trim();
   socialMsg.value = msgText + url;
   socialLink.href = url;
   socialLink.textContent = url;
