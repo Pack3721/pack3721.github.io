@@ -93,10 +93,12 @@ title: Make
                             {{ site.scout_type }} {{ site.unit_type }} {{ site.unit_number }}
                         </span>
                     </div>
+                      <div class="has-text-centered" style="margin-bottom:1em; color:#888; font-size:0.9em;">
+                        Revision: <span style="font-family:monospace;">{{ site.github.build_revision}}</span>
+                        </div>
                     <h1 class="title is-3 has-text-centered">Create Your Personalized Fundraiser Link & QR Code</h1>
                     <!--a subtle grayed out version hash string-->
-                    <div class="has-text-centered" style="margin-bottom:1em; color:#888; font-size:0.9em;">
-                        Revision: <span style="font-family:monospace;">{{ site.github.build_revision}}</span>
+
                     <form id="linkForm">
                         <div class="field">
                             <label class="label" for="scout">Enter Your Name <span
@@ -120,7 +122,7 @@ title: Make
                         </div>
                         <div class="field">
                             <div class="control">
-                                <button class="button is-link" type="submit" id="generateBtn">Create My Fundraiser Link
+                                <button class="button is-link" type="submit" id="generateBtn">Create Your Fundraiser Link
                                     &amp; QR Code</button>
                             </div>
                         </div>
@@ -150,7 +152,7 @@ title: Make
             <div class="box" style="margin:auto;">
                 <div class="has-text-centered no-print" style="margin-bottom:1em;">
                     <button class="button is-primary" onclick="window.print()" title="Print a flyer to hand out">Print
-                        My Fundraiser Flyer</button>
+                        Your Fundraiser Flyer</button>
                 </div>
                 <h2 id="flyerTitle" class="title is-4 has-text-centered no-print">Your Printable Fundraiser Flyer</h2>
                 <div class="has-text-centered" style="margin-bottom:0.5em;">
@@ -164,7 +166,7 @@ title: Make
                 </p>
                 <div class="has-text-centered" style="margin-bottom:1em; position:relative; width:340px; height:340px; margin:auto;">
                     <!-- CSS Sunburst Callouts -->
-                    <div class="sunburst" style="left:-160px; top:-160px; --burst-color:#ff3860; --angle:-15deg;">
+                    <div class="sunburst" style="left:-170px; top:-170px; --burst-color:#ff3860; --angle:-15deg;">
                         <span>ORDER ONLINE</span>
                     </div>
                     <div class="sunburst" style="right:-160px; top:140px; --burst-color:#3273dc; --angle:15deg;">
