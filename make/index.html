@@ -16,9 +16,6 @@ title: Make
         visibility: visible !important;
         position: static !important;
       }
-      #flyerSection .button {
-        display: none !important;
-      }
       .no-print,
       #printButtonSection,
       #socialSection,
@@ -67,7 +64,7 @@ title: Make
         </div>
       </section>
       <section id="socialSection" class="section" style="display:none;">
-        <div class='box' style='max-width:500px; margin:auto;'>
+        <div class='box' style='margin:auto;'>
           <h2 class='title is-5 has-text-centered'>Share Your Fundraiser</h2>
           <p class='has-text-centered'>Copy and Paste this message:</p>
           <div class='has-text-centered' style='margin-bottom:1em;'>
@@ -83,8 +80,10 @@ title: Make
       </div>
       <!-- Print Flyer Section -->
       <div id="flyerSection" style="display:none; margin-top:2em;">
-        <div class="box" style="max-width:500px; margin:auto;">
-          <button class="button is-primary" onclick="window.print()" title="Print a flyer to hand out">Print My Fundraiser Flyer</button>
+        <div class="box" style="margin:auto;">
+          <div class="has-text-centered no-print" style="margin-bottom:1em;">
+            <button class="button is-primary" onclick="window.print()" title="Print a flyer to hand out">Print My Fundraiser Flyer</button>
+          </div>
           <h2 class="title is-4 has-text-centered no-print">Your Printable Fundraiser Flyer</h2>
           <p class="has-text-centered">Support <span id="flyerScout"></span> and help us reach our goal!</p>
           <div class="has-text-centered" style="margin-bottom:1em;">
