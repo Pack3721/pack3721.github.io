@@ -96,7 +96,7 @@ title: Make
                       <div class="has-text-centered" style="margin-bottom:1em; color:#888; font-size:0.9em;">
                         Revision: <span style="font-family:monospace;">{{ site.github.build_revision}}</span>
                         </div>
-                    <h1 class="title is-3 has-text-centered">Create Your Personalized Fundraiser Link & QR Code</h1>
+                    <h1 class="title is-3 has-text-centered">Create Your Personalized Coffee Fundraiser Link & Flyer</h1>
                     <!--a subtle grayed out version hash string-->
 
                     <form id="linkForm">
@@ -125,7 +125,7 @@ title: Make
                         </div>
                         <div class="field">
                             <div class="control">
-                                <button class="button is-link" type="submit" id="generateBtn">Make Coffee Link &amp; QR Code</button>
+                                <button class="button is-link" type="submit" id="generateBtn">Make Coffee Link &amp; Flyer</button>
                             </div>
                         </div>
                     </form>
@@ -202,12 +202,12 @@ title: Make
             const code = this.value.trim();
             if (code) {
                 validateBtn.disabled = false;
-                btn.textContent = 'Make Coffee & Popcorn Link & QR Code';
+                btn.textContent = 'Make Coffee & Popcorn Link & Flyer';
                 btn.classList.remove('is-link');
                 btn.classList.add('is-warning');
             } else {
                 validateBtn.disabled = true;
-                btn.textContent = 'Make Coffee Link & QR Code';
+                btn.textContent = 'Make Coffee Link & Flyer';
                 btn.classList.remove('is-warning');
                 btn.classList.add('is-link');
                 previewDiv.style.display = 'none';
