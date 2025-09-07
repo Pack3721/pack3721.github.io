@@ -94,6 +94,9 @@ title: Make
                         </span>
                     </div>
                     <h1 class="title is-3 has-text-centered">Create Your Personalized Fundraiser Link & QR Code</h1>
+                    <!--a subtle grayed out version hash string-->
+                    <div class="has-text-centered" style="margin-bottom:1em; color:#888; font-size:0.9em;">
+                        Revision: <span style="font-family:monospace;">{{ site.github.build_revision}}</span>
                     <form id="linkForm">
                         <div class="field">
                             <label class="label" for="scout">Enter Your Name <span
@@ -157,17 +160,17 @@ title: Make
                     {{ site.scout_type }} {{ site.unit_type }} {{ site.unit_number }} Coffee Fundraiser
                 </p>
                 <p class="has-text-centered" style="margin-bottom:0.5em;">
-                    Order delicious coffee and treats online to help <span id="flyerScout2"></span> reach their goal!
+                    Order delicious coffee and treats online to help <span id="flyerScout"></span> reach their goal!
                 </p>
                 <div class="has-text-centered" style="margin-bottom:1em; position:relative; width:340px; height:340px; margin:auto;">
                     <!-- CSS Sunburst Callouts -->
-                    <div class="sunburst" style="left:-60px; top:-60px; --burst-color:#ff3860; --angle:-15deg;">
+                    <div class="sunburst" style="left:-160px; top:-160px; --burst-color:#ff3860; --angle:-15deg;">
                         <span>ORDER ONLINE</span>
                     </div>
-                    <div class="sunburst" style="right:-60px; top:40px; --burst-color:#3273dc; --angle:15deg;">
+                    <div class="sunburst" style="right:-160px; top:140px; --burst-color:#3273dc; --angle:15deg;">
                         <span>SHIPS DIRECTLY</span>
                     </div>
-                    <div class="sunburst" style="left:70%; bottom:-60px; transform:translate(-50%, 10px); --burst-color:#23d160; --angle:-10deg;">
+                    <div class="sunburst" style="left:70%; bottom:-160px; transform:translate(-50%, 10px); --burst-color:#23d160; --angle:-10deg;">
                         <span>ARRIVES SOONER</span>
                     </div>
                     <!-- QR Code Center -->
@@ -250,7 +253,6 @@ title: Make
             flyerSection.style.display = '';
             const scoutNameRaw = document.getElementById('scout').value.trim();
             document.getElementById('flyerScout').textContent = scoutNameRaw;
-            document.getElementById('flyerScout2').textContent = scoutNameRaw;
             document.getElementById('flyerLink').href = url;
             document.getElementById('flyerLink').textContent = url;
             document.getElementById('flyerTitle').textContent = flyerTitle;
