@@ -4,165 +4,178 @@ title: Make
 ---
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Make Custom Fundraiser Link for {{ site.scout_type }} {{ site.unit_type }} {{ site.unit_number }}</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-  <style>
-    @media print {
-      #flyerSection {
-        display: block !important;
-        visibility: visible !important;
-        position: static !important;
-      }
-      .no-print,
-      #printButtonSection,
-      #socialSection,
-      #linkForm,
-      #generator {
-        display: none !important;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make Custom Fundraiser Link for {{ site.scout_type }} {{ site.unit_type }} {{ site.unit_number }}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <style>
+        @media print {
+            #flyerSection {
+                display: block !important;
+                visibility: visible !important;
+                position: static !important;
+            }
+
+            .no-print,
+            #printButtonSection,
+            #socialSection,
+            #linkForm,
+            #generator {
+                display: none !important;
+            }
+        }
+    </style>
 </head>
+
 <body>
-  <section class="section">
-    <div class="container">
-      <section id="generator">
-        <div class="box">
-        <div class="has-text-centered" style="margin-bottom:1em;">
-          <span style="font-size:2em; font-weight:bold; color:#3273dc; letter-spacing:2px; text-shadow: 1px 1px 2px #eee;">
-            {{ site.scout_type }} {{ site.unit_type }} {{ site.unit_number }}
-          </span>
+    <section class="section">
+        <div class="container">
+            <section id="generator">
+                <div class="box">
+                    <div class="has-text-centered" style="margin-bottom:1em;">
+                        <span
+                            style="font-size:2em; font-weight:bold; color:#3273dc; letter-spacing:2px; text-shadow: 1px 1px 2px #eee;">
+                            {{ site.scout_type }} {{ site.unit_type }} {{ site.unit_number }}
+                        </span>
+                    </div>
+                    <h1 class="title is-3 has-text-centered">Create Your Personalized Fundraiser Link & QR Code</h1>
+                    <form id="linkForm">
+                        <div class="field">
+                            <label class="label" for="scout">Enter Your Name <span
+                                    class="has-text-danger">(required)</span>:</label>
+                            <div class="control">
+                                <input class="input" type="text" id="scout" name="scout" required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label" for="popcorn">Popcorn Scout Code <span
+                                    class="has-text-grey">(optional)</span>:</label>
+                            <p class="help">If you have a popcorn code, enter it here to include popcorn sales in your
+                                fundraiser link.</p>
+                            <div class="control">
+                                <input class="input" type="text" id="popcorn" name="popcorn">
+                            </div>
+                            <div id="popcornPreview" style="display:none; margin-top:0.5em;">
+                                <span class="has-text-grey">Preview Popcorn Link:</span>
+                                <a id="popcornLinkPreview" class="has-text-link" href="#" target="_blank"></a>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <button class="button is-link" type="submit" id="generateBtn">Create My Fundraiser Link
+                                    &amp; QR Code</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+            <section id="socialSection" class="section" style="display:none;">
+                <div class='box' style='margin:auto;'>
+                    <h2 class='title is-5 has-text-centered'>Share Your Fundraiser</h2>
+                    <p class='has-text-centered'>Copy and Paste this message:</p>
+                    <div class='has-text-centered' style='margin-bottom:1em;'>
+                        <textarea id='socialMsg' class='textarea' readonly style='margin-bottom:0.5em;'></textarea>
+                        <button class='button is-info' id='copyMsgBtn' title='Copy the message to your clipboard'>Copy
+                            Message</button>
+                        <div id="socialMsgTemplate" style="display:none;">
+                            Support [Scout Name]'s fundraising for {{ site.scout_type }} {{ site.unit_type }} {{
+                            site.unit_number }}! Order delicious coffee and treats! [URL]
+                        </div>
+                    </div>
+                    <p class='has-text-centered'>Or share this direct link: <a id='socialLink' class='has-text-link'
+                            href='#' target='_blank'></a></p>
+                </div>
+            </section>
         </div>
-        <h1 class="title is-3 has-text-centered">Create Your Personalized Fundraiser Link & QR Code</h1>
-        <form id="linkForm">
-          <div class="field">
-            <label class="label" for="scout">Enter Your Name <span class="has-text-danger">(required)</span>:</label>
-            <div class="control">
-              <input class="input" type="text" id="scout" name="scout" required>
+        <!-- Print Flyer Section -->
+        <div id="flyerSection" style="display:none; margin-top:2em;">
+            <div class="box" style="margin:auto;">
+                <div class="has-text-centered no-print" style="margin-bottom:1em;">
+                    <button class="button is-primary" onclick="window.print()" title="Print a flyer to hand out">Print
+                        My Fundraiser Flyer</button>
+                </div>
+                <h2 class="title is-4 has-text-centered no-print">Your Printable Fundraiser Flyer</h2>
+                <p class="has-text-centered">Support <span id="flyerScout"></span> and help us reach our goal!</p>
+                <div class="has-text-centered" style="margin-bottom:1em;">
+                    <canvas id="flyerQR" style="margin:auto;"></canvas>
+                </div>
+                <p class="has-text-centered">Scan the QR code or visit this link:</p>
+                <p class="has-text-centered"><a id="flyerLink" class="has-text-link" href="#" target="_blank"></a></p>
             </div>
-          </div>
-          <div class="field">
-            <label class="label" for="popcorn">Popcorn Scout Code <span class="has-text-grey">(optional)</span>:</label>
-            <p class="help">If you have a popcorn code, enter it here to include popcorn sales in your fundraiser link.</p>
-            <div class="control">
-              <input class="input" type="text" id="popcorn" name="popcorn">
-            </div>
-            <div id="popcornPreview" style="display:none; margin-top:0.5em;">
-              <span class="has-text-grey">Preview Popcorn Link:</span>
-              <a id="popcornLinkPreview" class="has-text-link" href="#" target="_blank"></a>
-            </div>
-          </div>
-          <div class="field">
-            <div class="control">
-              <button class="button is-link" type="submit" id="generateBtn">Create My Fundraiser Link &amp; QR Code</button>
-            </div>
-          </div>
-        </form>
         </div>
-      </section>
-      <section id="socialSection" class="section" style="display:none;">
-        <div class='box' style='margin:auto;'>
-          <h2 class='title is-5 has-text-centered'>Share Your Fundraiser</h2>
-          <p class='has-text-centered'>Copy and Paste this message:</p>
-          <div class='has-text-centered' style='margin-bottom:1em;'>
-            <textarea id='socialMsg' class='textarea' readonly style='margin-bottom:0.5em;'></textarea>
-            <button class='button is-info' id='copyMsgBtn' title='Copy the message to your clipboard'>Copy Message</button>
-            <div id="socialMsgTemplate" style="display:none;">
-              Support [Scout Name]'s fundraising for {{ site.scout_type }} {{ site.unit_type }} {{ site.unit_number }}! Order delicious coffee and treats! [URL]
-            </div>
-          </div>
-          <p class='has-text-centered'>Or share this direct link: <a id='socialLink' class='has-text-link' href='#' target='_blank'></a></p>
         </div>
-      </section>
-      </div>
-      <!-- Print Flyer Section -->
-      <div id="flyerSection" style="display:none; margin-top:2em;">
-        <div class="box" style="margin:auto;">
-          <div class="has-text-centered no-print" style="margin-bottom:1em;">
-            <button class="button is-primary" onclick="window.print()" title="Print a flyer to hand out">Print My Fundraiser Flyer</button>
-          </div>
-          <h2 class="title is-4 has-text-centered no-print">Your Printable Fundraiser Flyer</h2>
-          <p class="has-text-centered">Support <span id="flyerScout"></span> and help us reach our goal!</p>
-          <div class="has-text-centered" style="margin-bottom:1em;">
-            <canvas id="flyerQR" style="margin:auto;"></canvas>
-          </div>
-          <p class="has-text-centered">Scan the QR code or visit this link:</p>
-          <p class="has-text-centered"><a id="flyerLink" class="has-text-link" href="#" target="_blank"></a></p>
-        </div>
-      </div>
-    </div>
-  </section>
-  <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
-  <script>
-    // Popcorn code preview popover and button text/color change
-    document.getElementById('popcorn').addEventListener('input', function() {
-      const code = this.value.trim();
-      const previewDiv = document.getElementById('popcornPreview');
-      const previewLink = document.getElementById('popcornLinkPreview');
-      const btn = document.getElementById('generateBtn');
-      if (code) {
-        previewDiv.style.display = '';
-        previewLink.href = `{{site.popcorn_base_link}}${encodeURIComponent(code)}`;
-        previewLink.textContent = previewLink.href;
-        btn.textContent = 'Generate Coffee & Popcorn Link & QR Code';
-        btn.classList.remove('is-link');
-        btn.classList.add('is-warning');
-      } else {
-        previewDiv.style.display = 'none';
-        previewLink.href = '#';
-        previewLink.textContent = '';
-        btn.textContent = 'Generate Coffee Fundraiser Link & QR Code';
-        btn.classList.remove('is-warning');
-        btn.classList.add('is-link');
-      }
-    });
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
+    <script>
+        // Popcorn code preview popover and button text/color change
+        document.getElementById('popcorn').addEventListener('input', function () {
+            const code = this.value.trim();
+            const previewDiv = document.getElementById('popcornPreview');
+            const previewLink = document.getElementById('popcornLinkPreview');
+            const btn = document.getElementById('generateBtn');
+            if (code) {
+                previewDiv.style.display = '';
+                previewLink.href = `{{site.popcorn_base_link}}${encodeURIComponent(code)}`;
+                previewLink.textContent = previewLink.href;
+                btn.textContent = 'Generate Coffee & Popcorn Link & QR Code';
+                btn.classList.remove('is-link');
+                btn.classList.add('is-warning');
+            } else {
+                previewDiv.style.display = 'none';
+                previewLink.href = '#';
+                previewLink.textContent = '';
+                btn.textContent = 'Generate Coffee Fundraiser Link & QR Code';
+                btn.classList.remove('is-warning');
+                btn.classList.add('is-link');
+            }
+        });
 
 
-    document.getElementById('linkForm').onsubmit = function(e) {
-      e.preventDefault();
-      
-      // Encode scout name, replacing spaces with +
-      let scout = document.getElementById('scout').value.trim();
-      scout = encodeURIComponent(scout).replace(/%20/g, '+');
-      let popcorn = document.getElementById('popcorn').value.trim();
-      popcorn = encodeURIComponent(popcorn).replace(/%20/g, '+');
-      if (!scout) {
-        alert('Scout name is required.');
-        return;
-      }
-      let url;
-      if (popcorn) {
-        url = `${window.location.origin}/sell/?scout=${scout}&popcorn=${popcorn}`;
-      } else {
-        url = `${window.location.origin}/coffee/?scout=${scout}`;
-      }
-      // Populate and show social media share section
-      const socialSection = document.getElementById('socialSection');
-      const socialMsg = document.getElementById('socialMsg');
-      const socialLink = document.getElementById('socialLink');
-      const template = document.getElementById('socialMsgTemplate').textContent.trim();
-      const scoutName = decodeURIComponent(scout.replace(/\+/g, ' '));
-      const message = template.replace('[Scout Name]', scoutName).replace('[URL]', url);
-      socialMsg.value = message;
-      socialLink.href = url;
-      socialLink.textContent = url;
-      socialSection.style.display = '';
-      document.getElementById('copyMsgBtn').onclick = function() {
-        navigator.clipboard.writeText(socialMsg.value);
-      };
-  // Show flyer section and print button, and populate flyer
-  const flyerSection = document.getElementById('flyerSection');
-  flyerSection.style.display = '';
-  document.getElementById('printButtonSection').style.display = '';
-  document.getElementById('flyerScout').textContent = document.getElementById('scout').value.trim();
-  document.getElementById('flyerLink').href = url;
-  document.getElementById('flyerLink').textContent = url;
-  // Generate QR for flyer
-  new QRious({element: document.getElementById('flyerQR'), value: url, size: 200});
-    };
-  </script>
+        document.getElementById('linkForm').onsubmit = function (e) {
+            e.preventDefault();
+
+            // Encode scout name, replacing spaces with +
+            let scout = document.getElementById('scout').value.trim();
+            scout = encodeURIComponent(scout).replace(/%20/g, '+');
+            let popcorn = document.getElementById('popcorn').value.trim();
+            popcorn = encodeURIComponent(popcorn).replace(/%20/g, '+');
+            if (!scout) {
+                alert('Scout name is required.');
+                return;
+            }
+            let url;
+            if (popcorn) {
+                url = `${window.location.origin}/sell/?scout=${scout}&popcorn=${popcorn}`;
+            } else {
+                url = `${window.location.origin}/coffee/?scout=${scout}`;
+            }
+            // Populate and show social media share section
+            const socialSection = document.getElementById('socialSection');
+            const socialMsg = document.getElementById('socialMsg');
+            const socialLink = document.getElementById('socialLink');
+            const template = document.getElementById('socialMsgTemplate').textContent.trim();
+            const scoutName = decodeURIComponent(scout.replace(/\+/g, ' '));
+            const message = template.replace('[Scout Name]', scoutName).replace('[URL]', url);
+            socialMsg.value = message;
+            socialLink.href = url;
+            socialLink.textContent = url;
+            socialSection.style.display = '';
+            document.getElementById('copyMsgBtn').onclick = function () {
+                navigator.clipboard.writeText(socialMsg.value);
+            };
+            // Show flyer section and print button, and populate flyer
+            const flyerSection = document.getElementById('flyerSection');
+            flyerSection.style.display = '';
+            document.getElementById('printButtonSection').style.display = '';
+            document.getElementById('flyerScout').textContent = document.getElementById('scout').value.trim();
+            document.getElementById('flyerLink').href = url;
+            document.getElementById('flyerLink').textContent = url;
+            // Generate QR for flyer
+            new QRious({ element: document.getElementById('flyerQR'), value: url, size: 200 });
+        };
+    </script>
 </body>
+
 </html>
