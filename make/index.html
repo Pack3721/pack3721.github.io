@@ -31,45 +31,57 @@ title: Make
   <section class="section">
     <div class="container">
       <div class="box">
-        <h1 class="title is-3 has-text-centered">Generate Your Full Fundraiser Link & QR Code for {{ site.unit_type }} {{ site.unit_number }}</h1>
+  <h1 class="title is-3 has-text-centered">Create Your Personalized Fundraiser Link & QR Code</h1>
         <form id="linkForm">
           <div class="field">
-            <label class="label" for="scout">Scout Name <span class="has-text-danger">(required)</span>:</label>
+            <label class="label" for="scout">Enter Your Name <span class="has-text-danger">(required)</span>:</label>
             <div class="control">
               <input class="input" type="text" id="scout" name="scout" required>
             </div>
           </div>
           <div class="field">
             <label class="label" for="popcorn">Popcorn Scout Code <span class="has-text-grey">(optional)</span>:</label>
+            <p class="help">If you have a popcorn code, enter it here to include popcorn sales in your fundraiser link.</p>
             <div class="control">
               <input class="input" type="text" id="popcorn" name="popcorn">
             </div>
             <div id="popcornPreview" style="display:none; margin-top:0.5em;">
-              <span class="has-text-grey">Test Popcorn Link:</span>
+              <span class="has-text-grey">Preview Popcorn Link:</span>
               <a id="popcornLinkPreview" class="has-text-link" href="#" target="_blank"></a>
             </div>
           </div>
           <div class="field">
             <div class="control">
-              <button class="button is-link" type="submit" id="generateBtn">Generate Coffee Fundraiser Link &amp; QR Code</button>
+              <button class="button is-link" type="submit" id="generateBtn">Create My Fundraiser Link &amp; QR Code</button>
             </div>
           </div>
         </form>
-        <div id="result" style="margin-top:2em;"></div>
+      </div>
+      <section id="socialSection" class="section" style="display:none;">
+        <div class='box' style='max-width:500px; margin:auto;'>
+          <h2 class='title is-5 has-text-centered'>Share Your Fundraiser</h2>
+          <p class='has-text-centered'>Copy and Paste this message:</p>
+          <div class='has-text-centered' style='margin-bottom:1em;'>
+            <textarea id='socialMsg' class='textarea' readonly style='margin-bottom:0.5em;'>Support my fundraiser! Order delicious coffee and treats at: <span id="socialMsgUrl"></span></textarea>
+            <button class='button is-info' id='copyMsgBtn' title='Copy the message to your clipboard'>Copy Message</button>
+          </div>
+          <p class='has-text-centered'>Or share this direct link: <a id='socialLink' class='has-text-link' href='#' target='_blank'></a></p>
+        </div>
+      </section>
       </div>
       <!-- Print Flyer Section -->
+      <div class="has-text-centered" style="margin-top:2em;">
+        <button class="button is-primary" onclick="window.print()" title="Print a flyer to hand out">Print My Fundraiser Flyer</button>
+      </div>
       <div id="flyerSection" style="display:none; margin-top:2em;">
         <div class="box" style="max-width:500px; margin:auto;">
-          <h2 class="title is-4 has-text-centered">Printable Flyer</h2>
-          <p class="has-text-centered">Support <span id="flyerScout"></span> in our fundraiser!</p>
+          <h2 class="title is-4 has-text-centered">Your Printable Fundraiser Flyer</h2>
+          <p class="has-text-centered">Support <span id="flyerScout"></span> and help us reach our goal!</p>
           <div class="has-text-centered" style="margin-bottom:1em;">
             <canvas id="flyerQR" style="margin:auto;"></canvas>
           </div>
-          <p class="has-text-centered">Scan the QR code or visit:</p>
+          <p class="has-text-centered">Scan the QR code or visit this link:</p>
           <p class="has-text-centered"><a id="flyerLink" class="has-text-link" href="#" target="_blank"></a></p>
-        </div>
-        <div class="has-text-centered" style="margin-top:1em;">
-          <button class="button is-primary" onclick="window.print()">Print Flyer</button>
         </div>
       </div>
     </div>
@@ -118,8 +130,20 @@ title: Make
       } else {
         url = `${window.location.origin}/coffee/?scout=${scout}`;
       }
-      document.getElementById('result').innerHTML = `<p>Share this link:</p><a class='has-text-link' href="${url}" target="_blank">${url}</a><br><canvas id='qr'></canvas>`;
-  const qr = new QRious({element: document.getElementById('qr'), value: url, size: 200});
+      // Populate and show social media share section
+      const socialSection = document.getElementById('socialSection');
+      const socialMsg = document.getElementById('socialMsg');
+      const socialLink = document.getElementById('socialLink');
+  // Insert the URL into the message and link
+  // Get the message text from the HTML and append the URL
+  const msgText = socialMsg.value.replace(/<span.*<\/span>/, '').trim();
+  socialMsg.value = msgText + url;
+  socialLink.href = url;
+  socialLink.textContent = url;
+      socialSection.style.display = '';
+      document.getElementById('copyMsgBtn').onclick = function() {
+        navigator.clipboard.writeText(socialMsg.value);
+      };
   // Show flyer section and populate it
   const flyerSection = document.getElementById('flyerSection');
   flyerSection.style.display = '';
