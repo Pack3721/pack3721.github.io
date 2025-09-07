@@ -125,7 +125,7 @@ title: Make
                         </div>
                         <div class="field">
                             <div class="control">
-                                <button class="button is-link" type="submit" id="generateBtn">Make Coffee Link &amp; Flyer</button>
+                                <button class="button is-link" type="submit" id="generateBtn">Make <span id="saleTypePlaceholder">Coffee</span> Link &amp; Flyer</button>
                             </div>
                         </div>
                     </form>
@@ -198,21 +198,25 @@ title: Make
         const validateBtn = document.getElementById('validatePopcornBtn');
         const popover = document.getElementById('popcornPopover');
 
+        // Use single template for button text with sale type
+        const makeBtnTemplateRaw = document.getElementById('makeBtnTemplate').innerHTML;
         popcornInput.addEventListener('input', function () {
             const code = this.value.trim();
+            let saleTypePlaceholder = document.getElementById('saleTypePlaceholder');
+            let saleType;
+            validateBtn.disabled = !code;
             if (code) {
-                validateBtn.disabled = false;
-                btn.textContent = 'Make Coffee & Popcorn Link & Flyer';
+                saleType = 'Coffee &amp; Popcorn';
                 btn.classList.remove('is-link');
                 btn.classList.add('is-warning');
             } else {
-                validateBtn.disabled = true;
-                btn.textContent = 'Make Coffee Link & Flyer';
+                saleType = 'Coffee';
                 btn.classList.remove('is-warning');
                 btn.classList.add('is-link');
                 previewDiv.style.display = 'none';
                 popover.style.display = 'none';
             }
+            saleTypePlaceholder.innerHTML = saleType;
         });
 
         validateBtn.addEventListener('click', function () {
