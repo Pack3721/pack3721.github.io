@@ -198,8 +198,6 @@ title: Make
         const validateBtn = document.getElementById('validatePopcornBtn');
         const popover = document.getElementById('popcornPopover');
 
-        // Use single template for button text with sale type
-        const makeBtnTemplateRaw = document.getElementById('makeBtnTemplate').innerHTML;
         popcornInput.addEventListener('input', function () {
             const code = this.value.trim();
             let saleTypePlaceholder = document.getElementById('saleTypePlaceholder');
