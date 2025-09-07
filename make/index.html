@@ -96,8 +96,16 @@ title: Make
                     <button class="button is-primary" onclick="window.print()" title="Print a flyer to hand out">Print
                         My Fundraiser Flyer</button>
                 </div>
-                <h2 class="title is-4 has-text-centered no-print">Your Printable Fundraiser Flyer</h2>
-                <p class="has-text-centered">Support <span id="flyerScout"></span> and help us reach our goal!</p>
+                <h2 id="flyerTitle" class="title is-4 has-text-centered no-print">Your Printable Fundraiser Flyer</h2>
+                <div class="has-text-centered" style="margin-bottom:0.5em;">
+                    <img id="flyerImg" src="/assets/images/coffee.png" alt="Coffee Fundraiser" style="height:60px; margin:0 10px; display:inline-block;">
+                </div>
+                <p class="has-text-centered title" id="flyerFundraiserText" style="font-size:1.2em; font-weight:bold; margin-bottom:0.5em;">
+                    {{ site.scout_type }} {{ site.unit_type }} {{ site.unit_number }} Coffee Fundraiser
+                </p>
+                <p class="has-text-centered" style="margin-bottom:0.5em;">
+                    Order delicious coffee and treats online to help <span id="flyerScout2"></span> and Help <span id="flyerScout"></span> reach their goal!
+                </p>
                 <!-- SVG Sunburst Callouts Orbiting QR -->
                 <div class="has-text-centered" style="margin-bottom:1em; position:relative; width:320px; height:320px; margin:auto;">
                     <!-- Sunburst 1 -->
@@ -212,11 +220,17 @@ title: Make
                 alert('Scout name is required.');
                 return;
             }
-            let url;
+            let url, flyerTitle, flyerFundraiserText, flyerImgSrc;
             if (popcorn) {
                 url = `${window.location.origin}/sell/?scout=${scout}&popcorn=${popcorn}`;
+                flyerTitle = 'Coffee & Popcorn Fundraiser Flyer';
+                flyerFundraiserText = `{{ site.scout_type }} {{ site.unit_type }} {{ site.unit_number }} Coffee & Popcorn Fundraiser`;
+                flyerImgSrc = '/assets/images/sell.png';
             } else {
                 url = `${window.location.origin}/coffee/?scout=${scout}`;
+                flyerTitle = 'Coffee Fundraiser Flyer';
+                flyerFundraiserText = `{{ site.scout_type }} {{ site.unit_type }} {{ site.unit_number }} Coffee Fundraiser`;
+                flyerImgSrc = '/assets/images/coffee.png';
             }
             // Populate and show social media share section
             const socialSection = document.getElementById('socialSection');
@@ -235,9 +249,14 @@ title: Make
             // Show flyer section and print button, and populate flyer
             const flyerSection = document.getElementById('flyerSection');
             flyerSection.style.display = '';
-            document.getElementById('flyerScout').textContent = document.getElementById('scout').value.trim();
+            const scoutNameRaw = document.getElementById('scout').value.trim();
+            document.getElementById('flyerScout').textContent = scoutNameRaw;
+            document.getElementById('flyerScout2').textContent = scoutNameRaw;
             document.getElementById('flyerLink').href = url;
             document.getElementById('flyerLink').textContent = url;
+            document.getElementById('flyerTitle').textContent = flyerTitle;
+            document.getElementById('flyerFundraiserText').textContent = flyerFundraiserText;
+            document.getElementById('flyerImg').src = flyerImgSrc;
             // Generate QR for flyer
             new QRious({ element: document.getElementById('flyerQR'), value: url, size: 200 });
         };
