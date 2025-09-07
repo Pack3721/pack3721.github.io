@@ -157,17 +157,17 @@ title: Make
                     {{ site.scout_type }} {{ site.unit_type }} {{ site.unit_number }} Coffee Fundraiser
                 </p>
                 <p class="has-text-centered" style="margin-bottom:0.5em;">
-                    Order delicious coffee and treats online to help <span id="flyerScout2"></span> and Help <span id="flyerScout"></span> reach their goal!
+                    Order delicious coffee and treats online to help <span id="flyerScout2"></span> reach their goal!
                 </p>
                 <div class="has-text-centered" style="margin-bottom:1em; position:relative; width:340px; height:340px; margin:auto;">
                     <!-- CSS Sunburst Callouts -->
-                    <div class="sunburst" style="left:-30px; top:-30px; --burst-color:#ff3860; --angle:-15deg;">
+                    <div class="sunburst" style="left:-60px; top:-60px; --burst-color:#ff3860; --angle:-15deg;">
                         <span>ORDER ONLINE</span>
                     </div>
-                    <div class="sunburst" style="right:-30px; top:10px; --burst-color:#3273dc; --angle:15deg;">
+                    <div class="sunburst" style="right:-60px; top:40px; --burst-color:#3273dc; --angle:15deg;">
                         <span>SHIPS DIRECTLY</span>
                     </div>
-                    <div class="sunburst" style="left:50%; bottom:-30px; transform:translate(-50%, 10px); --burst-color:#23d160; --angle:-10deg;">
+                    <div class="sunburst" style="left:70%; bottom:-60px; transform:translate(-50%, 10px); --burst-color:#23d160; --angle:-10deg;">
                         <span>ARRIVES SOONER</span>
                     </div>
                     <!-- QR Code Center -->
@@ -219,18 +219,18 @@ title: Make
                 alert('Scout name is required.');
                 return;
             }
-            let url, flyerTitle, flyerFundraiserText, flyerImgSrc;
-            if (popcorn) {
-                url = `${window.location.origin}/sell/?scout=${scout}&popcorn=${popcorn}`;
-                flyerTitle = 'Coffee & Popcorn Fundraiser Flyer';
-                flyerFundraiserText = `{{ site.scout_type }} {{ site.unit_type }} {{ site.unit_number }} Coffee & Popcorn Fundraiser`;
-                flyerImgSrc = '/assets/images/sell.png';
-            } else {
-                url = `${window.location.origin}/coffee/?scout=${scout}`;
-                flyerTitle = 'Coffee Fundraiser Flyer';
-                flyerFundraiserText = `{{ site.scout_type }} {{ site.unit_type }} {{ site.unit_number }} Coffee Fundraiser`;
-                flyerImgSrc = '/assets/images/coffee.png';
-            }
+            const isPopcorn = Boolean(popcorn);
+            const url = isPopcorn
+                ? `${window.location.origin}/sell/?scout=${scout}&popcorn=${popcorn}`
+                : `${window.location.origin}/coffee/?scout=${scout}`;
+            const flyerKind= isPopcorn
+                ? 'Coffee & Popcorn Fundraiser'
+                : 'Coffee Fundraiser';
+            const flyerTitle = flyerKind + ' Flyer';
+            const flyerFundraiserText = `{{ site.scout_type }} {{ site.unit_type }} {{ site.unit_number }} ${flyerKind}`;
+            const flyerImgSrc = isPopcorn
+                ? '/assets/images/sell.png'
+                : '/assets/images/coffee.png';
             // Populate and show social media share section
             const socialSection = document.getElementById('socialSection');
             const socialMsg = document.getElementById('socialMsg');
