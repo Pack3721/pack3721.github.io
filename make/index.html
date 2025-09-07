@@ -115,14 +115,17 @@ title: Make
                             <div class="control">
                                 <input class="input" type="text" id="popcorn" name="popcorn">
                             </div>
-                            <div id="popcornPreview" style="display:none; margin-top:0.5em;">
-                                <span class="has-text-grey">Preview Popcorn Link:</span>
-                                <a id="popcornLinkPreview" class="has-text-link" href="#" target="_blank"></a>
+                            <button class="button is-small is-light" id="validatePopcornBtn" type="button" style="margin-top:0.5em;">Validate Popcorn Code</button>
+                            <div id="popcornPreview" style="display:none; position:relative;">
+                                <div id="popcornPopover" style="display:none; position:absolute; left:0; top:2em; background:#fff; border:1px solid #ccc; box-shadow:0 2px 8px #ddd; padding:0.5em 1em; border-radius:6px; z-index:10; min-width:220px;">
+                                    <span class="has-text-grey">Preview Popcorn Link:</span>
+                                    <a id="popcornLinkPreview" class="has-text-link" href="#" target="_blank"></a>
+                                </div>
                             </div>
                         </div>
                         <div class="field">
                             <div class="control">
-                                <button class="button is-link" type="submit" id="generateBtn">Generate Coffee Link &amp; QR Code</button>
+                                <button class="button is-link" type="submit" id="generateBtn">Make Coffee Link &amp; QR Code</button>
                             </div>
                         </div>
                     </form>
@@ -133,7 +136,7 @@ title: Make
                     <h2 class='title is-5 has-text-centered'>Share Your Fundraiser</h2>
                     <p class='has-text-centered'>Copy and Paste this message:</p>
                     <div class='has-text-centered' style='margin-bottom:1em;'>
-                        <textarea id='socialMsg' class='textarea' readonly style='margin-bottom:0.5em;'></textarea>
+                        <textarea id='socialMsg' class='textarea' readonly style='margin-bottom:0.5em; min-height:120px;'></textarea>
                         <button class='button is-info' id='copyMsgBtn' title='Copy the message to your clipboard'>Copy
                             Message</button>
                         <div id="socialMsgTemplate" style="display:none;">
@@ -188,25 +191,49 @@ title: Make
     <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
     <script>
         // Popcorn code preview popover and button text/color change
-        document.getElementById('popcorn').addEventListener('input', function () {
+        const popcornInput = document.getElementById('popcorn');
+        const previewDiv = document.getElementById('popcornPreview');
+        const previewLink = document.getElementById('popcornLinkPreview');
+        const btn = document.getElementById('generateBtn');
+        const validateBtn = document.getElementById('validatePopcornBtn');
+        const popover = document.getElementById('popcornPopover');
+
+        popcornInput.addEventListener('input', function () {
             const code = this.value.trim();
-            const previewDiv = document.getElementById('popcornPreview');
-            const previewLink = document.getElementById('popcornLinkPreview');
-            const btn = document.getElementById('generateBtn');
             if (code) {
-                previewDiv.style.display = '';
-                previewLink.href = `{{site.popcorn_base_link}}${encodeURIComponent(code)}`;
-                previewLink.textContent = previewLink.href;
-                btn.textContent = 'Generate Coffee & Popcorn Link & QR Code';
+                validateBtn.disabled = false;
+                btn.textContent = 'Make Coffee & Popcorn Link & QR Code';
                 btn.classList.remove('is-link');
                 btn.classList.add('is-warning');
             } else {
-                previewDiv.style.display = 'none';
-                previewLink.href = '#';
-                previewLink.textContent = '';
-                btn.textContent = 'Generate Coffee Link & QR Code';
+                validateBtn.disabled = true;
+                btn.textContent = 'Make Coffee Link & QR Code';
                 btn.classList.remove('is-warning');
                 btn.classList.add('is-link');
+                previewDiv.style.display = 'none';
+                popover.style.display = 'none';
+            }
+        });
+
+        validateBtn.addEventListener('click', function () {
+            const code = popcornInput.value.trim();
+            if (code) {
+                previewDiv.style.display = 'block';
+                popover.style.display = 'block';
+                previewLink.href = `{{site.popcorn_base_link}}${encodeURIComponent(code)}`;
+                previewLink.textContent = previewLink.href;
+            } else {
+                previewDiv.style.display = 'none';
+                popover.style.display = 'none';
+                previewLink.href = '#';
+                previewLink.textContent = '';
+            }
+        });
+
+        // Hide popover when clicking outside
+        document.addEventListener('click', function (e) {
+            if (!popover.contains(e.target) && e.target !== validateBtn) {
+                popover.style.display = 'none';
             }
         });
 
