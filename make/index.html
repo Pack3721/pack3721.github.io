@@ -70,7 +70,7 @@ title: Make
             <textarea id='socialMsg' class='textarea' readonly style='margin-bottom:0.5em;'></textarea>
             <button class='button is-info' id='copyMsgBtn' title='Copy the message to your clipboard'>Copy Message</button>
             <div id="socialMsgTemplate" style="display:none;">
-              Support [Scout Name] fundraising for {{ site.scout_type }} {{ site.unit_type }} {{ site.unit_number }}! Order delicious coffee and treats! [URL]
+              Support [Scout Name]'s fundraising for {{ site.scout_type }} {{ site.unit_type }} {{ site.unit_number }}! Order delicious coffee and treats! [URL]
             </div>
           </div>
           <p class='has-text-centered'>Or share this direct link: <a id='socialLink' class='has-text-link' href='#' target='_blank'></a></p>
@@ -142,7 +142,7 @@ title: Make
       const socialSection = document.getElementById('socialSection');
       const socialMsg = document.getElementById('socialMsg');
       const socialLink = document.getElementById('socialLink');
-      const template = document.getElementById('socialMsgTemplate').textContent;
+      const template = document.getElementById('socialMsgTemplate').textContent.trim();
       const scoutName = decodeURIComponent(scout.replace(/\+/g, ' '));
       const message = template.replace('[Scout Name]', scoutName).replace('[URL]', url);
       socialMsg.value = message;
