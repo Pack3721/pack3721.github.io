@@ -127,7 +127,7 @@ title: Make
                             <div class="control">
                                 <button class="button is-link" type="submit" id="generateBtn">
                                     Make
-                                    <span id="saleTypePlaceholder">Coffee</span> 
+                                    &nbsp;<span id="saleTypePlaceholder">Coffee</span>&nbsp;
                                     Link &amp; Flyer</button>
                             </div>
                         </div>
@@ -207,11 +207,11 @@ title: Make
             let saleType;
             validateBtn.disabled = !code;
             if (code) {
-                saleType = ' Coffee &amp; Popcorn ';
+                saleType = 'Coffee &amp; Popcorn';
                 btn.classList.remove('is-link');
                 btn.classList.add('is-warning');
             } else {
-                saleType = ' Coffee ';
+                saleType = 'Coffee';
                 btn.classList.remove('is-warning');
                 btn.classList.add('is-link');
                 previewDiv.style.display = 'none';
