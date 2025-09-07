@@ -22,7 +22,7 @@ title: Make
       #printButtonSection,
       #socialSection,
       #linkForm,
-      .box:not(:has(#flyerSection)) {
+      #generator {
         display: none !important;
       }
     }
@@ -31,7 +31,7 @@ title: Make
 <body>
   <section class="section">
     <div class="container">
-      <div class="box">
+      <section id="generator">
         <div class="has-text-centered" style="margin-bottom:1em;">
           <span style="font-size:2em; font-weight:bold; color:#3273dc; letter-spacing:2px; text-shadow: 1px 1px 2px #eee;">
             {{ site.scout_type }} {{ site.unit_type }} {{ site.unit_number }}
@@ -62,7 +62,7 @@ title: Make
             </div>
           </div>
         </form>
-      </div>
+      </section>
       <section id="socialSection" class="section" style="display:none;">
         <div class='box' style='max-width:500px; margin:auto;'>
           <h2 class='title is-5 has-text-centered'>Share Your Fundraiser</h2>
