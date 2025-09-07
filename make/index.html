@@ -221,9 +221,13 @@ title: Make
             const code = popcornInput.value.trim();
             if (code) {
                 previewDiv.style.display = 'block';
-                popover.style.display = 'block';
-                previewLink.href = `{{site.popcorn_base_link}}${encodeURIComponent(code)}`;
-                previewLink.textContent = previewLink.href;
+                if (popover.style.display === 'block') {
+                    popover.style.display = 'none';
+                } else {
+                    popover.style.display = 'block';
+                    previewLink.href = `{{site.popcorn_base_link}}${encodeURIComponent(code)}`;
+                    previewLink.textContent = previewLink.href;
+                }
             } else {
                 previewDiv.style.display = 'none';
                 popover.style.display = 'none';
