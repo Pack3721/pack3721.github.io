@@ -4,4 +4,6 @@ unit_number: "3721"
 coffee_link: "https://gatewaytraders.org/collections/gslac-coffee"
 popcorn_base_link: "https://trails-end.com/store/scout/"
 scout_type: "Cub Scout"
-google_analytics: "G-8C7LBN3MZT" # Your Google Analytics Measurement ID - replace with your own or remove if you don't want to use Google Analytics
+google_analytics: "G-8C7LBN3MZT" # Google Analytics Measurement ID
+# Replace with your own ID. If using Google Analytics, ensure you to it to redact the 'scout' parameter for privacy.
+# Remove the above line if you do not wish to enable Google Analytics tracking.
