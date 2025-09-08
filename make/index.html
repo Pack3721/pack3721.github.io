@@ -142,10 +142,16 @@ title: Make
                         <textarea id='socialMsg' class='textarea' readonly style='margin-bottom:0.5em; min-height:220px;'></textarea>
                         <button class='button is-info' id='copyMsgBtn' title='Copy the message to your clipboard'>Copy
                             Message</button>
-                        <div id="socialMsgTemplate" style="display:none;">
+                        <!-- 
+                            Social message template for sharing fundraiser.
+                            Placeholders:
+                              [Scout Name] - will be replaced with the entered scout's name.
+                              [URL] - will be replaced with the generated fundraiser link.
+                        -->
+                        <template id="socialMsgTemplate">
                             Support [Scout Name]'s fundraising for {{ site.scout_type }} {{ site.unit_type }} {{
-                            site.unit_number }}! Order delicious coffee and treats! [URL]
-                        </div>
+                            site.unit_number }}! Order delicious coffee and treats! Ordering online ships directly to you! [URL]
+                        </template>
                     </div>
                     <p class='has-text-centered'>Or share this direct link: <a id='socialLink' class='has-text-link'
                             href='#' target='_blank'></a></p>
@@ -171,7 +177,7 @@ title: Make
                 </p>
                 <div class="has-text-centered" style="margin-bottom:1em; position:relative; width:340px; height:340px; margin:auto;">
                     <!-- CSS Sunburst Callouts -->
-                    <div class="sunburst" style="left:-170px; top:-170px; --burst-color:#ff3860; --angle:-15deg;">
+                    <div class="sunburst" style="left:-175px; top:-170px; --burst-color:#ff3860; --angle:-15deg;">
                         <span>ORDER ONLINE</span>
                     </div>
                     <div class="sunburst" style="right:-160px; top:140px; --burst-color:#3273dc; --angle:15deg;">
@@ -191,13 +197,10 @@ title: Make
         </div>
         </div>
     </section>
-    <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
+        <script src="/assets/js/utility.js?v={{site.github.build_revision}}"></script>
         <script>
-        // Simple SHA-256 hash, returns first 8 hex chars
-        async function scoutHash(str) {
-            const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
-            return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('').slice(0,8);
-        }
+
         // Popcorn code preview popover and button text/color change
         const popcornInput = document.getElementById('popcorn');
         const previewDiv = document.getElementById('popcornPreview');
@@ -251,54 +254,57 @@ title: Make
             }
         });
 
-
-        document.getElementById('linkForm').onsubmit = function (e) {
-                e.preventDefault();
-                let scoutRaw = document.getElementById('scout').value.trim();
-                let scout = encodeURIComponent(scoutRaw).replace(/%20/g, '+');
-                let popcornRaw = document.getElementById('popcorn').value.trim();
-                let popcorn = encodeURIComponent(popcornRaw).replace(/%20/g, '+');
-                if (!scout) {
-                    alert('Scout name is required.');
-                    return;
-                }
-                scoutHash(scoutRaw).then(t => {
-                    const isPopcorn = Boolean(popcorn);
-                    const url = isPopcorn
-                        ? `${window.location.origin}/sell/?scout=${scout}&popcorn=${popcorn}&t=${t}`
-                        : `${window.location.origin}/coffee/?scout=${scout}&t=${t}`;
-                    const flyerKind = isPopcorn ? 'Coffee & Popcorn Fundraiser' : 'Coffee Fundraiser';
-                    const flyerTitle = flyerKind + ' Flyer';
-                    const flyerFundraiserText = `{{ site.scout_type }} {{ site.unit_type }} {{ site.unit_number }} ${flyerKind}`;
-                    const flyerImgSrc = isPopcorn ? '/assets/images/sell.png' : '/assets/images/coffee.png';
-                    // Populate and show social media share section
-                    const socialSection = document.getElementById('socialSection');
-                    const socialMsg = document.getElementById('socialMsg');
-                    const socialLink = document.getElementById('socialLink');
-                    const template = document.getElementById('socialMsgTemplate').textContent.trim();
-                    const scoutName = decodeURIComponent(scout.replace(/\+/g, ' '));
-                    const message = template.replace('[Scout Name]', scoutName).replace('[URL]', url);
-                    socialMsg.value = message;
-                    socialLink.href = url;
-                    socialLink.textContent = url;
-                    socialSection.style.display = '';
-                    document.getElementById('copyMsgBtn').onclick = function () {
-                        navigator.clipboard.writeText(socialMsg.value);
-                    };
-                    // Show flyer section and print button, and populate flyer
-                    const flyerSection = document.getElementById('flyerSection');
-                    flyerSection.style.display = '';
-                    document.getElementById('flyerScout').textContent = scoutRaw;
-                    document.getElementById('flyerLink').href = url;
-                    document.getElementById('flyerLink').textContent = url;
-                    document.getElementById('flyerTitle').textContent = flyerTitle;
-                    document.getElementById('flyerFundraiserText').textContent = flyerFundraiserText;
-                    document.getElementById('flyerImg').src = flyerImgSrc;
-                    // Generate QR for flyer
-                    new QRious({ element: document.getElementById('flyerQR'), value: url, size: 200 });
-                    // Show scroll down message
-                    document.getElementById('scrollDownMessage').style.display = '';
-                });
+        document.getElementById('linkForm').onsubmit = async function (e) {
+            e.preventDefault();
+            let scoutRaw = document.getElementById('scout').value.trim();
+            let popcornRaw = document.getElementById('popcorn').value.trim();
+            let p = encodeURIComponent(popcornRaw.toUpperCase()).replace(/%20/g, '+');
+            if (!scoutRaw) {
+                alert('Scout name is required.');
+                return;
+            }
+            // Obfuscate scout name
+            const repoId = '{{site.github.repository_nwo}}';
+            const keyBytes = new Uint8Array(await sha256(repoId));
+            const s = await xorObfuscate(scoutRaw, keyBytes);
+            // Hash for t param (keep for compatibility)
+            const scoutHashBuf = await sha256(scoutRaw);
+            const t = bytesToBase32(new Uint8Array(scoutHashBuf)).slice(0,8);
+            const isPopcorn = Boolean(p);
+            const url = isPopcorn
+                ? `${window.location.origin}/sell/?s=${encodeURIComponent(s)}&p=${p}&t=${t}`
+                : `${window.location.origin}/coffee/?s=${encodeURIComponent(s)}&t=${t}`;
+            const flyerKind = isPopcorn ? 'Coffee & Popcorn Fundraiser' : 'Coffee Fundraiser';
+            const flyerTitle = flyerKind + ' Flyer';
+            const flyerFundraiserText = `{{ site.scout_type }} {{ site.unit_type }} {{ site.unit_number }} ${flyerKind}`;
+            const flyerImgSrc = isPopcorn ? '/assets/images/sell.png' : '/assets/images/coffee.png';
+            // Populate and show social media share section
+            const socialSection = document.getElementById('socialSection');
+            const socialMsg = document.getElementById('socialMsg');
+            const socialLink = document.getElementById('socialLink');
+                const template = document.getElementById('socialMsgTemplate').content.textContent.trim();
+            const scoutName = scoutRaw;
+            const message = template.replace('[Scout Name]', scoutName).replace('[URL]', url);
+            socialMsg.value = message;
+            socialLink.href = url;
+            socialLink.textContent = url;
+            socialSection.style.display = '';
+            document.getElementById('copyMsgBtn').onclick = function () {
+                navigator.clipboard.writeText(socialMsg.value);
+            };
+            // Show flyer section and print button, and populate flyer
+            const flyerSection = document.getElementById('flyerSection');
+            flyerSection.style.display = '';
+            document.getElementById('flyerScout').textContent = scoutRaw;
+            document.getElementById('flyerLink').href = url;
+            document.getElementById('flyerLink').textContent = url;
+            document.getElementById('flyerTitle').textContent = flyerTitle;
+            document.getElementById('flyerFundraiserText').textContent = flyerFundraiserText;
+            document.getElementById('flyerImg').src = flyerImgSrc;
+            // Generate QR for flyer
+            new QRious({ element: document.getElementById('flyerQR'), value: url, size: 200 });
+            // Show scroll down message
+            document.getElementById('scrollDownMessage').style.display = '';
         };
     </script>
     {% include google_analytics.html %}

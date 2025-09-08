@@ -29,3 +29,9 @@ Desktop.ini
 
 # Python virtualenv (if used)
 venv/
+
+# Ruby/Jekyll local development
+Gemfile
+Gemfile.lock
+vendor/
+.bundle/

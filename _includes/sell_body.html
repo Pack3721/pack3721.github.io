@@ -71,28 +71,41 @@
     </div>
 </section>
 <!-- Move script to end of body for valid HTML -->
+<script src="/assets/js/utility.js?v={{site.github.build_revision}}"></script>
 <script>
-    function getQuery() {
-        const params = new URLSearchParams(window.location.search);
-        return {
-            scout: params.get('scout') || '',
-            popcorn: params.get('popcorn') || ''
-        };
+
+
+    async function getScoutName() {
+        const params = getQueryParamsCI();
+        const repoId = '{{site.github.repository_nwo}}';
+        if (params['s']) {
+            const keyBytes = new Uint8Array(await sha256(repoId));
+            const obfuscatedString = params['s'];
+            const decrypted = await xorDeobfuscate(obfuscatedString, keyBytes);
+            if (decrypted) return decrypted;
+        }
+        return params['scout'] || '';
     }
-    function render() {
-        const query = getQuery();
+
+    async function render() {
+        const params = getQueryParamsCI();
+        const scout = await getScoutName();
+        // Use p param if present, else fallback to popcorn
+        let p = params['p'] || '';
+        let popcorn = params['popcorn'] || '';
+        let popcornCode = p ? p.toUpperCase() : popcorn;
         // Scout name
-        document.querySelectorAll('.scoutname').forEach(function (el) { el.textContent = query.scout || ''; });
+        document.querySelectorAll('.scoutname').forEach(function (el) { el.textContent = scout || ''; });
         // Popcorn
-        if (query.popcorn && query.scout) {
+        if (popcornCode && scout) {
             document.getElementById('popcornfundraiser').style.display = '';
-            document.getElementById('popcornlink').href = "{{ site.popcorn_base_link }}" + query.popcorn;
+            document.getElementById('popcornlink').href = "{{ site.popcorn_base_link }}" + popcornCode;
         } else {
             document.getElementById('popcornfundraiser').style.display = 'none';
             document.getElementById('popcornlink').href = '{{ site.popcorn_base_link }}';
         }
         // Error if missing scout
-        if (!query.scout) {
+        if (!scout) {
             document.getElementById('popcornfundraiser').style.display = 'none';
             // Optionally show error message
             document.getElementById('scoutname').parentElement.innerHTML = '<b>Error:</b> Missing scout name.';
